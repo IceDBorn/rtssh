@@ -1,6 +1,6 @@
 # Only works with my configuration!
 <b>Adjust this for your configuration:</b>
-1. Insert your own ssh keys into the folder containing the executable
+1. Insert your own private ssh key into the folder containing the executable
 2. Change the hardcoded ssh values with your host, username, port
 
 # Credits
