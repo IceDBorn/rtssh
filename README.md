@@ -8,7 +8,7 @@
 2. Save settings
 3. Add a tray icon
 4. Add a "Run at startup" option
-5. Find a way to make it work for any setup
+5. Make it work with any setup
 
 # Credits
 <b>damob-byun</b> for <a href="https://github.com/damob-byun/OpenRtssText" target="_blank">OpenRtssText</a>
