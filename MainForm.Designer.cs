@@ -41,6 +41,8 @@
             this.keyLabel = new System.Windows.Forms.Label();
             this.autoConnectCheckBox = new System.Windows.Forms.CheckBox();
             this.saveSettingsCheckBox = new System.Windows.Forms.CheckBox();
+            this.jsonPathTextBox = new System.Windows.Forms.TextBox();
+            this.jsonPathLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -79,7 +81,7 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(138, 156);
+            this.connectButton.Location = new System.Drawing.Point(138, 190);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 23);
             this.connectButton.TabIndex = 4;
@@ -89,11 +91,11 @@
             // 
             // usernameLabel
             // 
-            this.usernameLabel.Location = new System.Drawing.Point(39, 15);
+            this.usernameLabel.Location = new System.Drawing.Point(66, 15);
             this.usernameLabel.Name = "usernameLabel";
-            this.usernameLabel.Size = new System.Drawing.Size(60, 23);
+            this.usernameLabel.Size = new System.Drawing.Size(32, 17);
             this.usernameLabel.TabIndex = 5;
-            this.usernameLabel.Text = "Username:";
+            this.usernameLabel.Text = "User:";
             // 
             // hostLabel
             // 
@@ -137,12 +139,30 @@
             this.saveSettingsCheckBox.Text = "Save settings";
             this.saveSettingsCheckBox.UseVisualStyleBackColor = true;
             // 
+            // jsonPathTextBox
+            // 
+            this.jsonPathTextBox.Location = new System.Drawing.Point(124, 152);
+            this.jsonPathTextBox.Name = "jsonPathTextBox";
+            this.jsonPathTextBox.Size = new System.Drawing.Size(100, 20);
+            this.jsonPathTextBox.TabIndex = 11;
+            this.jsonPathTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // jsonPathLabel
+            // 
+            this.jsonPathLabel.Location = new System.Drawing.Point(59, 155);
+            this.jsonPathLabel.Name = "jsonPathLabel";
+            this.jsonPathLabel.Size = new System.Drawing.Size(40, 12);
+            this.jsonPathLabel.TabIndex = 12;
+            this.jsonPathLabel.Text = "JSON:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(341, 191);
+            this.ClientSize = new System.Drawing.Size(341, 225);
+            this.Controls.Add(this.jsonPathLabel);
+            this.Controls.Add(this.jsonPathTextBox);
             this.Controls.Add(this.saveSettingsCheckBox);
             this.Controls.Add(this.autoConnectCheckBox);
             this.Controls.Add(this.keyLabel);
@@ -163,11 +183,14 @@
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.Label jsonPathLabel;
+
+        private System.Windows.Forms.TextBox jsonPathTextBox;
+
         private System.Windows.Forms.CheckBox autoConnectCheckBox;
         private System.Windows.Forms.CheckBox saveSettingsCheckBox;
 
         private System.Windows.Forms.Label hostLabel;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label portLabel;
         private System.Windows.Forms.Label keyLabel;
         private System.Windows.Forms.Label usernameLabel;

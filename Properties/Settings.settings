@@ -4,16 +4,16 @@
     <Profile Name="(Default)" />
   </Profiles>
   <Settings>
-    <Setting Name="Username" Type="System.String" Scope="User">
+    <Setting Name="username" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Host" Type="System.String" Scope="User">
+    <Setting Name="host" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="Port" Type="System.String" Scope="User">
+    <Setting Name="port" Type="System.String" Scope="User">
       <Value Profile="(Default)">22</Value>
     </Setting>
-    <Setting Name="Key" Type="System.String" Scope="User">
+    <Setting Name="key" Type="System.String" Scope="User">
       <Value Profile="(Default)">id_rsa</Value>
     </Setting>
     <Setting Name="autoConnect" Type="System.Boolean" Scope="User">
@@ -21,6 +21,9 @@
     </Setting>
     <Setting Name="saveSettings" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="jsonPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
