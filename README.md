@@ -1,7 +1,7 @@
 # Only works with my configuration!
 <b>Adjust this for your configuration:</b>
-1. Insert your own private ssh key into the folder containing the executable
-2. Change the hardcoded ssh values with your host, username, port
+1. Fire up a terminal and run "sensors -j"
+2. Based on the output, make the changes necessary to get your cpu temp from the JSON Object (SSHStream.cs|Lines 37-41)
 
 # Credits
 1. <b>damob-byun</b> for <a href="https://github.com/damob-byun/OpenRtssText" target="_blank">OpenRtssText</a> 
