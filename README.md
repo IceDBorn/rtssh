@@ -1,4 +1,4 @@
-# Adjust this for your configuration:
+# Adjust this for your configuration
 1. Fire up a terminal and run "sensors -j"
 2. Based on the output, add the corresponding JSON cells path, seperated by commas, for the temp you want to monitor into the JSON TextBox
 
