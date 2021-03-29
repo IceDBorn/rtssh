@@ -7,16 +7,11 @@ namespace rtssh
 {
     internal static class SSHStream
     {
-        private static void Main(string[] args)
+        public static void Start(string username, string host, int port, string keyPath)
         {
             // Run RTSS or hook to existing process
             RTSSHandler.RunRTSS();
-            
-            // Connect to SSH Client
-            var key = new PrivateKeyFile("id_rsa");
-            const string username = "icedborn";
-            const string host = "192.168.122.1";
-            const int port = 22;
+            var key = new PrivateKeyFile(keyPath);
             var sshClient = new SshClient(host, port, username, key);
             sshClient.Connect();
             Console.WriteLine("Connected to SSH Client as " + username);
