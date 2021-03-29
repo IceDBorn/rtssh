@@ -10,10 +10,18 @@ namespace rtssh
         public MainForm()
         {
             InitializeComponent();
+            // Initialize all textboxes and checkboxes
+            usernameTextBox.Text = Properties.Settings.Default.Username;
+            hostTextBox.Text = Properties.Settings.Default.Host;
+            portTextBox.Text = Properties.Settings.Default.Port;
+            keyTextBox.Text = Properties.Settings.Default.Key;
+            autoConnectCheckBox.Checked = Properties.Settings.Default.autoConnect;
+            saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
         }
 
         private void connectButton_Click(object sender, EventArgs e)
         {
+            // Start new ssh connection thread
             _thread = new Thread(() => SSHStream.Start(
                 usernameTextBox.Text, 
                 hostTextBox.Text, 
@@ -21,10 +29,25 @@ namespace rtssh
                 keyTextBox.Text
             ));
             _thread.Start();
+            
+            // Save or clear settings
+            if (saveSettingsCheckBox.Checked)
+            {
+                Settings.Save(usernameTextBox.Text, 
+                    hostTextBox.Text, 
+                    portTextBox.Text, 
+                    keyTextBox.Text,
+                    autoConnectCheckBox.Checked);
+            }
+            else
+            {
+                Settings.Clear();
+            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // Stop the ssh connection when the form is closed
             try
             {
                 _thread.Abort();

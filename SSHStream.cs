@@ -14,7 +14,6 @@ namespace rtssh
             var key = new PrivateKeyFile(keyPath);
             var sshClient = new SshClient(host, port, username, key);
             sshClient.Connect();
-            Console.WriteLine("Connected to SSH Client as " + username);
             
             // Stream sensors -j
             var shellStream = sshClient.CreateShellStream("rtssh", 
