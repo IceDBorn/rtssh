@@ -5,7 +5,7 @@
 
 <b>Example:</b>
 
-<img src="https://i.imgur.com/KgNEiLW.png" width="600" height="600">
+<img src="https://i.imgur.com/KgNEiLW.png" width="700" height="700">
 
 # Credits
 1. <b>damob-byun</b> for <a href="https://github.com/damob-byun/OpenRtssText" target="_blank">OpenRtssText</a> 
