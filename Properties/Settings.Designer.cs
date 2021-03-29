@@ -26,48 +26,48 @@ namespace rtssh.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Username {
+        public string username {
             get {
-                return ((string)(this["Username"]));
+                return ((string)(this["username"]));
             }
             set {
-                this["Username"] = value;
+                this["username"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Host {
+        public string host {
             get {
-                return ((string)(this["Host"]));
+                return ((string)(this["host"]));
             }
             set {
-                this["Host"] = value;
+                this["host"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("22")]
-        public string Port {
+        public string port {
             get {
-                return ((string)(this["Port"]));
+                return ((string)(this["port"]));
             }
             set {
-                this["Port"] = value;
+                this["port"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("id_rsa")]
-        public string Key {
+        public string key {
             get {
-                return ((string)(this["Key"]));
+                return ((string)(this["key"]));
             }
             set {
-                this["Key"] = value;
+                this["key"] = value;
             }
         }
         
@@ -92,6 +92,18 @@ namespace rtssh.Properties {
             }
             set {
                 this["saveSettings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string jsonPath {
+            get {
+                return ((string)(this["jsonPath"]));
+            }
+            set {
+                this["jsonPath"] = value;
             }
         }
     }
