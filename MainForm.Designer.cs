@@ -38,8 +38,8 @@
             this.hostLabel = new System.Windows.Forms.Label();
             this.portLabel = new System.Windows.Forms.Label();
             this.keyLabel = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.autoConnectCheckBox = new System.Windows.Forms.CheckBox();
+            this.saveSettingsCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -118,23 +118,23 @@
             this.keyLabel.TabIndex = 8;
             this.keyLabel.Text = "Key:";
             // 
-            // checkBox1
+            // autoConnectCheckBox
             // 
-            this.checkBox1.Location = new System.Drawing.Point(246, 10);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(93, 24);
-            this.checkBox1.TabIndex = 9;
-            this.checkBox1.Text = "Auto-connect";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.autoConnectCheckBox.Location = new System.Drawing.Point(246, 10);
+            this.autoConnectCheckBox.Name = "autoConnectCheckBox";
+            this.autoConnectCheckBox.Size = new System.Drawing.Size(93, 24);
+            this.autoConnectCheckBox.TabIndex = 9;
+            this.autoConnectCheckBox.Text = "Auto-connect";
+            this.autoConnectCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // saveSettingsCheckBox
             // 
-            this.checkBox2.Location = new System.Drawing.Point(246, 45);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(93, 24);
-            this.checkBox2.TabIndex = 10;
-            this.checkBox2.Text = "Save settings";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.saveSettingsCheckBox.Location = new System.Drawing.Point(246, 45);
+            this.saveSettingsCheckBox.Name = "saveSettingsCheckBox";
+            this.saveSettingsCheckBox.Size = new System.Drawing.Size(93, 24);
+            this.saveSettingsCheckBox.TabIndex = 10;
+            this.saveSettingsCheckBox.Text = "Save settings";
+            this.saveSettingsCheckBox.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -142,8 +142,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(341, 191);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.saveSettingsCheckBox);
+            this.Controls.Add(this.autoConnectCheckBox);
             this.Controls.Add(this.keyLabel);
             this.Controls.Add(this.portLabel);
             this.Controls.Add(this.hostLabel);
@@ -160,8 +160,8 @@
             this.PerformLayout();
         }
 
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox autoConnectCheckBox;
+        private System.Windows.Forms.CheckBox saveSettingsCheckBox;
 
         private System.Windows.Forms.Label hostLabel;
         private System.Windows.Forms.Label label1;

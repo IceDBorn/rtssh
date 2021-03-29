@@ -65,6 +65,7 @@
             <DependentUpon>MainForm.cs</DependentUpon>
         </Compile>
         <Compile Include="LaunchForm.cs" />
+        <Compile Include="Settings.cs" />
         <Compile Include="RTSSHandler.cs" />
         <Compile Include="SSHStream.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
