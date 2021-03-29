@@ -17,9 +17,33 @@ namespace rtssh
             keyTextBox.Text = Properties.Settings.Default.Key;
             autoConnectCheckBox.Checked = Properties.Settings.Default.autoConnect;
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
+            
+            // Connect if Auto Connect is enabled
+            if (autoConnectCheckBox.Checked)
+            {
+                Connect();
+            }
         }
 
         private void connectButton_Click(object sender, EventArgs e)
+        {
+            Connect();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Stop the ssh connection when the form is closed
+            try
+            {
+                _thread.Abort();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private void Connect()
         {
             // Start new ssh connection thread
             _thread = new Thread(() => SSHStream.Start(
@@ -42,19 +66,6 @@ namespace rtssh
             else
             {
                 Settings.Clear();
-            }
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // Stop the ssh connection when the form is closed
-            try
-            {
-                _thread.Abort();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
             }
         }
     }
