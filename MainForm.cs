@@ -42,9 +42,24 @@ namespace rtssh
                 Console.WriteLine(ex);
             }
         }
+        
+        //Methods
 
         private void Connect()
         {
+            // Check if a thread is running and then kill it 
+            try
+            {
+                if (_thread.IsAlive)
+                {
+                    _thread.Abort();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            
             // Start new ssh connection thread
             _thread = new Thread(() => SSHStream.Start(
                 usernameTextBox.Text, 
