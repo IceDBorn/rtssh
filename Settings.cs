@@ -6,20 +6,10 @@ namespace rtssh
         {
             // Change each setting with user's value
             Properties.Settings.Default["Username"] = username;
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["Host"] = host;
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["Port"] = port;
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["Key"] = key;
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["autoConnect"] = autoConnect;
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["saveSettings"] = true;
             Properties.Settings.Default.Save();
         }
@@ -28,20 +18,10 @@ namespace rtssh
         {
             // Revert all settings back to default values
             Properties.Settings.Default["Username"] = "";
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["Host"] = "";
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["Port"] = "22";
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["Key"] = "id_rsa";
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["autoConnect"] = false;
-            Properties.Settings.Default.Save();
-            
             Properties.Settings.Default["saveSettings"] = false;
             Properties.Settings.Default.Save();
         }
