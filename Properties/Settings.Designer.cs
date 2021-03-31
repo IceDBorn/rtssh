@@ -106,5 +106,29 @@ namespace rtssh.Properties {
                 this["jsonPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CPU")]
+        public string tempText {
+            get {
+                return ((string)(this["tempText"]));
+            }
+            set {
+                this["tempText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("CPU")]
+        public string freqText {
+            get {
+                return ((string)(this["freqText"]));
+            }
+            set {
+                this["freqText"] = value;
+            }
+        }
     }
 }
