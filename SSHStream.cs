@@ -22,37 +22,46 @@ namespace rtssh
                 MessageBox.Show(e.Message);
                 return;
             }
+
             var sshClient = new SshClient(host, port, username, key);
             sshClient.Connect();
-            
+
             // Stream sensors -j
-            var shellStream = sshClient.CreateShellStream("rtssh", 
+            var tempStream = sshClient.CreateShellStream("rtssh",
                 0, 0, 0, 0, 1024);
-            const string command = "while true; do sensors -j | jq -cM; sleep 1; done";
-            shellStream.WriteLine(command);
+            var freqStream = sshClient.CreateShellStream("rtssh",
+                0, 0, 0, 0, 1024);
+            const string tempCommand = "while true; do sensors -j | jq -cM; sleep 1; done";
+            const string freqCommand = "while true; do lscpu -J | jq -cM; sleep 1; done";
+            tempStream.WriteLine(tempCommand);
+            freqStream.WriteLine(freqCommand);
 
             while (true)
             {
                 // Save ssh output into string
-                var temp = shellStream.Read();
-                
+                var tempOutput = tempStream.Read();
+                var freqOutput = freqStream.Read();
+
                 // Export total cpu temp from ssh output
                 try
                 {
-                    if (temp.Length > 0 && temp.StartsWith("{"))
+                    if (tempOutput.Length > 0 && tempOutput.StartsWith("{") && freqOutput.Length > 0 &&
+                        freqOutput.StartsWith("{"))
                     {
-                        var jsonTemp = JObject.Parse(temp);
+                        var jsonTemp = JObject.Parse(tempOutput);
+                        var freqTemp = JObject.Parse(freqOutput);
+
                         // Split jsonPath with , into a string Array
                         var jsonPathFormatted = JsonPathFormatter(jsonPath);
-                        var formattedTemp = "CPU:   " +
-                                            (int) (double) jsonTemp
-                                                    [jsonPathFormatted[0]] ?
-                                                    [jsonPathFormatted[1]] ?
-                                                    [jsonPathFormatted[2]] +
-                                            "";
-                        
+
+                        // Formatted text ready for printing to OSD
+                        var formattedPrint = "CPU:   " +
+                                             (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
+                                             [jsonPathFormatted[2]] + "°\n" + "CPU:   " +
+                                             (int) (double) freqTemp["lscpu"]?[16]?["data"];
+
                         // Print cpu temp into RTSS
-                        RTSSHandler.Print(formattedTemp);
+                        RTSSHandler.Print(formattedPrint);
                     }
                 }
                 catch (Exception e)
@@ -61,6 +70,7 @@ namespace rtssh
                     sshClient.Disconnect();
                     return;
                 }
+
                 // Wait for 1 second before updating the cpu temp
                 Thread.Sleep(1000);
             }
