@@ -69,7 +69,9 @@ namespace rtssh
                     hostTextBox.Text,
                     int.Parse(portTextBox.Text),
                     keyTextBox.Text,
-                    jsonPathTextBox.Text
+                    jsonPathTextBox.Text,
+                    tempTextBox.Text,
+                    freqTextBox.Text
                 ));
                 _thread.Start();
 

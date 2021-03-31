@@ -43,11 +43,15 @@
             this.saveSettingsCheckBox = new System.Windows.Forms.CheckBox();
             this.jsonPathTextBox = new System.Windows.Forms.TextBox();
             this.jsonPathLabel = new System.Windows.Forms.Label();
+            this.tempTextBox = new System.Windows.Forms.TextBox();
+            this.freqTextBox = new System.Windows.Forms.TextBox();
+            this.freqLabel = new System.Windows.Forms.Label();
+            this.tempLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameTextBox
             // 
-            this.usernameTextBox.Location = new System.Drawing.Point(124, 12);
+            this.usernameTextBox.Location = new System.Drawing.Point(76, 15);
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(100, 20);
             this.usernameTextBox.TabIndex = 0;
@@ -55,7 +59,7 @@
             // 
             // hostTextBox
             // 
-            this.hostTextBox.Location = new System.Drawing.Point(124, 45);
+            this.hostTextBox.Location = new System.Drawing.Point(76, 48);
             this.hostTextBox.Name = "hostTextBox";
             this.hostTextBox.Size = new System.Drawing.Size(100, 20);
             this.hostTextBox.TabIndex = 1;
@@ -63,7 +67,7 @@
             // 
             // portTextBox
             // 
-            this.portTextBox.Location = new System.Drawing.Point(124, 82);
+            this.portTextBox.Location = new System.Drawing.Point(76, 85);
             this.portTextBox.Name = "portTextBox";
             this.portTextBox.Size = new System.Drawing.Size(100, 20);
             this.portTextBox.TabIndex = 2;
@@ -72,7 +76,7 @@
             // 
             // keyTextBox
             // 
-            this.keyTextBox.Location = new System.Drawing.Point(124, 117);
+            this.keyTextBox.Location = new System.Drawing.Point(76, 120);
             this.keyTextBox.Name = "keyTextBox";
             this.keyTextBox.Size = new System.Drawing.Size(100, 20);
             this.keyTextBox.TabIndex = 3;
@@ -81,7 +85,7 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(138, 190);
+            this.connectButton.Location = new System.Drawing.Point(90, 193);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 23);
             this.connectButton.TabIndex = 4;
@@ -91,7 +95,7 @@
             // 
             // usernameLabel
             // 
-            this.usernameLabel.Location = new System.Drawing.Point(66, 15);
+            this.usernameLabel.Location = new System.Drawing.Point(18, 18);
             this.usernameLabel.Name = "usernameLabel";
             this.usernameLabel.Size = new System.Drawing.Size(32, 17);
             this.usernameLabel.TabIndex = 5;
@@ -99,7 +103,7 @@
             // 
             // hostLabel
             // 
-            this.hostLabel.Location = new System.Drawing.Point(66, 50);
+            this.hostLabel.Location = new System.Drawing.Point(18, 53);
             this.hostLabel.Name = "hostLabel";
             this.hostLabel.Size = new System.Drawing.Size(33, 23);
             this.hostLabel.TabIndex = 6;
@@ -107,7 +111,7 @@
             // 
             // portLabel
             // 
-            this.portLabel.Location = new System.Drawing.Point(69, 85);
+            this.portLabel.Location = new System.Drawing.Point(21, 88);
             this.portLabel.Name = "portLabel";
             this.portLabel.Size = new System.Drawing.Size(30, 23);
             this.portLabel.TabIndex = 7;
@@ -115,7 +119,7 @@
             // 
             // keyLabel
             // 
-            this.keyLabel.Location = new System.Drawing.Point(70, 120);
+            this.keyLabel.Location = new System.Drawing.Point(22, 123);
             this.keyLabel.Name = "keyLabel";
             this.keyLabel.Size = new System.Drawing.Size(29, 23);
             this.keyLabel.TabIndex = 8;
@@ -123,25 +127,25 @@
             // 
             // autoConnectCheckBox
             // 
-            this.autoConnectCheckBox.Location = new System.Drawing.Point(246, 10);
+            this.autoConnectCheckBox.Location = new System.Drawing.Point(191, 13);
             this.autoConnectCheckBox.Name = "autoConnectCheckBox";
-            this.autoConnectCheckBox.Size = new System.Drawing.Size(93, 24);
+            this.autoConnectCheckBox.Size = new System.Drawing.Size(95, 24);
             this.autoConnectCheckBox.TabIndex = 9;
             this.autoConnectCheckBox.Text = "Auto-connect";
             this.autoConnectCheckBox.UseVisualStyleBackColor = true;
             // 
             // saveSettingsCheckBox
             // 
-            this.saveSettingsCheckBox.Location = new System.Drawing.Point(246, 45);
+            this.saveSettingsCheckBox.Location = new System.Drawing.Point(191, 48);
             this.saveSettingsCheckBox.Name = "saveSettingsCheckBox";
-            this.saveSettingsCheckBox.Size = new System.Drawing.Size(93, 24);
+            this.saveSettingsCheckBox.Size = new System.Drawing.Size(95, 24);
             this.saveSettingsCheckBox.TabIndex = 10;
             this.saveSettingsCheckBox.Text = "Save settings";
             this.saveSettingsCheckBox.UseVisualStyleBackColor = true;
             // 
             // jsonPathTextBox
             // 
-            this.jsonPathTextBox.Location = new System.Drawing.Point(124, 152);
+            this.jsonPathTextBox.Location = new System.Drawing.Point(76, 155);
             this.jsonPathTextBox.Name = "jsonPathTextBox";
             this.jsonPathTextBox.Size = new System.Drawing.Size(100, 20);
             this.jsonPathTextBox.TabIndex = 11;
@@ -149,18 +153,52 @@
             // 
             // jsonPathLabel
             // 
-            this.jsonPathLabel.Location = new System.Drawing.Point(59, 155);
+            this.jsonPathLabel.Location = new System.Drawing.Point(11, 158);
             this.jsonPathLabel.Name = "jsonPathLabel";
             this.jsonPathLabel.Size = new System.Drawing.Size(40, 12);
             this.jsonPathLabel.TabIndex = 12;
             this.jsonPathLabel.Text = "JSON:";
+            // 
+            // tempTextBox
+            // 
+            this.tempTextBox.Location = new System.Drawing.Point(186, 112);
+            this.tempTextBox.Name = "tempTextBox";
+            this.tempTextBox.Size = new System.Drawing.Size(100, 20);
+            this.tempTextBox.TabIndex = 13;
+            // 
+            // freqTextBox
+            // 
+            this.freqTextBox.Location = new System.Drawing.Point(186, 155);
+            this.freqTextBox.Name = "freqTextBox";
+            this.freqTextBox.Size = new System.Drawing.Size(100, 20);
+            this.freqTextBox.TabIndex = 14;
+            // 
+            // freqLabel
+            // 
+            this.freqLabel.Location = new System.Drawing.Point(198, 135);
+            this.freqLabel.Name = "freqLabel";
+            this.freqLabel.Size = new System.Drawing.Size(80, 17);
+            this.freqLabel.TabIndex = 15;
+            this.freqLabel.Text = "Frequency text:";
+            // 
+            // tempLabel
+            // 
+            this.tempLabel.Location = new System.Drawing.Point(191, 92);
+            this.tempLabel.Name = "tempLabel";
+            this.tempLabel.Size = new System.Drawing.Size(92, 17);
+            this.tempLabel.TabIndex = 16;
+            this.tempLabel.Text = "Temperature text:";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(341, 225);
+            this.ClientSize = new System.Drawing.Size(302, 230);
+            this.Controls.Add(this.tempLabel);
+            this.Controls.Add(this.freqLabel);
+            this.Controls.Add(this.freqTextBox);
+            this.Controls.Add(this.tempTextBox);
             this.Controls.Add(this.jsonPathLabel);
             this.Controls.Add(this.jsonPathTextBox);
             this.Controls.Add(this.saveSettingsCheckBox);
@@ -182,6 +220,11 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label freqLabel;
+        private System.Windows.Forms.Label tempLabel;
+        private System.Windows.Forms.TextBox tempTextBox;
+        private System.Windows.Forms.TextBox freqTextBox;
 
         private System.Windows.Forms.Label jsonPathLabel;
 
