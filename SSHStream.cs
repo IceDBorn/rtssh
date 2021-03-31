@@ -12,7 +12,16 @@ namespace rtssh
         {
             // Run RTSS or hook to existing process
             RTSSHandler.RunRTSS();
-            var key = new PrivateKeyFile(keyPath);
+            PrivateKeyFile key;
+            try
+            {
+                key = new PrivateKeyFile(keyPath);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+                return;
+            }
             var sshClient = new SshClient(host, port, username, key);
             sshClient.Connect();
             
@@ -50,7 +59,7 @@ namespace rtssh
                 {
                     MessageBox.Show(e.Message);
                     sshClient.Disconnect();
-                    break;
+                    return;
                 }
                 // Wait for 1 second before updating the cpu temp
                 Thread.Sleep(1000);
