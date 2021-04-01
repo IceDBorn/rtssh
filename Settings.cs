@@ -23,7 +23,7 @@ namespace rtssh
         {
             // Revert all settings back to default values
             Properties.Settings.Default["Username"] = "";
-            Properties.Settings.Default["Host"] = "";
+            Properties.Settings.Default["Host"] = "192.168.122.1";
             Properties.Settings.Default["Port"] = "22";
             Properties.Settings.Default["Key"] = "id_rsa";
             Properties.Settings.Default["jsonPath"] = "";
@@ -31,7 +31,7 @@ namespace rtssh
             Properties.Settings.Default["saveSettings"] = false;
             Properties.Settings.Default["tempText"] = "CPU ";
             Properties.Settings.Default["freqText"] = "CPU ";
-            Properties.Settings.Default["seperatorComma"] = true;
+            Properties.Settings.Default["separatorComma"] = true;
             Properties.Settings.Default["displayToggle"] = 2;
             Properties.Settings.Default.Save();
         }
