@@ -47,9 +47,15 @@
             this.freqTextBox = new System.Windows.Forms.TextBox();
             this.freqLabel = new System.Windows.Forms.Label();
             this.tempLabel = new System.Windows.Forms.Label();
-            this.seperatorLabel = new System.Windows.Forms.Label();
             this.commaRadioButton = new System.Windows.Forms.RadioButton();
             this.newLineRadioButton = new System.Windows.Forms.RadioButton();
+            this.seperatorGroupBox = new System.Windows.Forms.GroupBox();
+            this.displayGroupBox = new System.Windows.Forms.GroupBox();
+            this.bothRadioButton = new System.Windows.Forms.RadioButton();
+            this.tempRadioButton = new System.Windows.Forms.RadioButton();
+            this.freqRadioButton = new System.Windows.Forms.RadioButton();
+            this.seperatorGroupBox.SuspendLayout();
+            this.displayGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -192,17 +198,9 @@
             this.tempLabel.TabIndex = 16;
             this.tempLabel.Text = "Temperature text:";
             // 
-            // seperatorLabel
-            // 
-            this.seperatorLabel.Location = new System.Drawing.Point(208, 70);
-            this.seperatorLabel.Name = "seperatorLabel";
-            this.seperatorLabel.Size = new System.Drawing.Size(80, 17);
-            this.seperatorLabel.TabIndex = 19;
-            this.seperatorLabel.Text = "Separate with";
-            // 
             // commaRadioButton
             // 
-            this.commaRadioButton.Location = new System.Drawing.Point(219, 83);
+            this.commaRadioButton.Location = new System.Drawing.Point(6, 12);
             this.commaRadioButton.Name = "commaRadioButton";
             this.commaRadioButton.Size = new System.Drawing.Size(64, 24);
             this.commaRadioButton.TabIndex = 20;
@@ -212,7 +210,7 @@
             // 
             // newLineRadioButton
             // 
-            this.newLineRadioButton.Location = new System.Drawing.Point(219, 103);
+            this.newLineRadioButton.Location = new System.Drawing.Point(6, 32);
             this.newLineRadioButton.Name = "newLineRadioButton";
             this.newLineRadioButton.Size = new System.Drawing.Size(64, 24);
             this.newLineRadioButton.TabIndex = 21;
@@ -220,15 +218,67 @@
             this.newLineRadioButton.Text = "new line";
             this.newLineRadioButton.UseVisualStyleBackColor = true;
             // 
+            // seperatorGroupBox
+            // 
+            this.seperatorGroupBox.Controls.Add(this.commaRadioButton);
+            this.seperatorGroupBox.Controls.Add(this.newLineRadioButton);
+            this.seperatorGroupBox.Location = new System.Drawing.Point(196, 64);
+            this.seperatorGroupBox.Name = "seperatorGroupBox";
+            this.seperatorGroupBox.Size = new System.Drawing.Size(87, 62);
+            this.seperatorGroupBox.TabIndex = 23;
+            this.seperatorGroupBox.TabStop = false;
+            this.seperatorGroupBox.Text = "Seperate with";
+            // 
+            // displayGroupBox
+            // 
+            this.displayGroupBox.Controls.Add(this.bothRadioButton);
+            this.displayGroupBox.Controls.Add(this.tempRadioButton);
+            this.displayGroupBox.Controls.Add(this.freqRadioButton);
+            this.displayGroupBox.Location = new System.Drawing.Point(305, 64);
+            this.displayGroupBox.Name = "displayGroupBox";
+            this.displayGroupBox.Size = new System.Drawing.Size(92, 78);
+            this.displayGroupBox.TabIndex = 24;
+            this.displayGroupBox.TabStop = false;
+            this.displayGroupBox.Text = "Display";
+            // 
+            // bothRadioButton
+            // 
+            this.bothRadioButton.Location = new System.Drawing.Point(6, 52);
+            this.bothRadioButton.Name = "bothRadioButton";
+            this.bothRadioButton.Size = new System.Drawing.Size(64, 24);
+            this.bothRadioButton.TabIndex = 22;
+            this.bothRadioButton.TabStop = true;
+            this.bothRadioButton.Text = "both";
+            this.bothRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // tempRadioButton
+            // 
+            this.tempRadioButton.Location = new System.Drawing.Point(6, 12);
+            this.tempRadioButton.Name = "tempRadioButton";
+            this.tempRadioButton.Size = new System.Drawing.Size(85, 24);
+            this.tempRadioButton.TabIndex = 20;
+            this.tempRadioButton.TabStop = true;
+            this.tempRadioButton.Text = "temperature";
+            this.tempRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // freqRadioButton
+            // 
+            this.freqRadioButton.Location = new System.Drawing.Point(6, 32);
+            this.freqRadioButton.Name = "freqRadioButton";
+            this.freqRadioButton.Size = new System.Drawing.Size(76, 24);
+            this.freqRadioButton.TabIndex = 21;
+            this.freqRadioButton.TabStop = true;
+            this.freqRadioButton.Text = "frequency";
+            this.freqRadioButton.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(302, 230);
-            this.Controls.Add(this.newLineRadioButton);
-            this.Controls.Add(this.commaRadioButton);
-            this.Controls.Add(this.seperatorLabel);
+            this.ClientSize = new System.Drawing.Size(412, 230);
+            this.Controls.Add(this.displayGroupBox);
+            this.Controls.Add(this.seperatorGroupBox);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.freqLabel);
             this.Controls.Add(this.freqTextBox);
@@ -251,14 +301,21 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "rtssh";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.seperatorGroupBox.ResumeLayout(false);
+            this.displayGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.GroupBox displayGroupBox;
+        private System.Windows.Forms.RadioButton tempRadioButton;
+        private System.Windows.Forms.RadioButton freqRadioButton;
+        private System.Windows.Forms.RadioButton bothRadioButton;
+
+        private System.Windows.Forms.GroupBox seperatorGroupBox;
+
         private System.Windows.Forms.RadioButton commaRadioButton;
         private System.Windows.Forms.RadioButton newLineRadioButton;
-
-        private System.Windows.Forms.Label seperatorLabel;
 
         private System.Windows.Forms.CheckedListBox checkedListBox1;
 
