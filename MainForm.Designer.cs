@@ -47,6 +47,9 @@
             this.freqTextBox = new System.Windows.Forms.TextBox();
             this.freqLabel = new System.Windows.Forms.Label();
             this.tempLabel = new System.Windows.Forms.Label();
+            this.seperatorLabel = new System.Windows.Forms.Label();
+            this.commaRadioButton = new System.Windows.Forms.RadioButton();
+            this.newLineRadioButton = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -136,7 +139,7 @@
             // 
             // saveSettingsCheckBox
             // 
-            this.saveSettingsCheckBox.Location = new System.Drawing.Point(191, 48);
+            this.saveSettingsCheckBox.Location = new System.Drawing.Point(191, 34);
             this.saveSettingsCheckBox.Name = "saveSettingsCheckBox";
             this.saveSettingsCheckBox.Size = new System.Drawing.Size(95, 24);
             this.saveSettingsCheckBox.TabIndex = 10;
@@ -161,21 +164,21 @@
             // 
             // tempTextBox
             // 
-            this.tempTextBox.Location = new System.Drawing.Point(186, 112);
+            this.tempTextBox.Location = new System.Drawing.Point(191, 155);
             this.tempTextBox.Name = "tempTextBox";
             this.tempTextBox.Size = new System.Drawing.Size(100, 20);
             this.tempTextBox.TabIndex = 13;
             // 
             // freqTextBox
             // 
-            this.freqTextBox.Location = new System.Drawing.Point(186, 155);
+            this.freqTextBox.Location = new System.Drawing.Point(191, 198);
             this.freqTextBox.Name = "freqTextBox";
             this.freqTextBox.Size = new System.Drawing.Size(100, 20);
             this.freqTextBox.TabIndex = 14;
             // 
             // freqLabel
             // 
-            this.freqLabel.Location = new System.Drawing.Point(198, 135);
+            this.freqLabel.Location = new System.Drawing.Point(203, 178);
             this.freqLabel.Name = "freqLabel";
             this.freqLabel.Size = new System.Drawing.Size(80, 17);
             this.freqLabel.TabIndex = 15;
@@ -183,11 +186,39 @@
             // 
             // tempLabel
             // 
-            this.tempLabel.Location = new System.Drawing.Point(191, 92);
+            this.tempLabel.Location = new System.Drawing.Point(196, 135);
             this.tempLabel.Name = "tempLabel";
             this.tempLabel.Size = new System.Drawing.Size(92, 17);
             this.tempLabel.TabIndex = 16;
             this.tempLabel.Text = "Temperature text:";
+            // 
+            // seperatorLabel
+            // 
+            this.seperatorLabel.Location = new System.Drawing.Point(208, 70);
+            this.seperatorLabel.Name = "seperatorLabel";
+            this.seperatorLabel.Size = new System.Drawing.Size(80, 17);
+            this.seperatorLabel.TabIndex = 19;
+            this.seperatorLabel.Text = "Separate with";
+            // 
+            // commaRadioButton
+            // 
+            this.commaRadioButton.Location = new System.Drawing.Point(219, 83);
+            this.commaRadioButton.Name = "commaRadioButton";
+            this.commaRadioButton.Size = new System.Drawing.Size(64, 24);
+            this.commaRadioButton.TabIndex = 20;
+            this.commaRadioButton.TabStop = true;
+            this.commaRadioButton.Text = "comma";
+            this.commaRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // newLineRadioButton
+            // 
+            this.newLineRadioButton.Location = new System.Drawing.Point(219, 103);
+            this.newLineRadioButton.Name = "newLineRadioButton";
+            this.newLineRadioButton.Size = new System.Drawing.Size(64, 24);
+            this.newLineRadioButton.TabIndex = 21;
+            this.newLineRadioButton.TabStop = true;
+            this.newLineRadioButton.Text = "new line";
+            this.newLineRadioButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -195,6 +226,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(302, 230);
+            this.Controls.Add(this.newLineRadioButton);
+            this.Controls.Add(this.commaRadioButton);
+            this.Controls.Add(this.seperatorLabel);
             this.Controls.Add(this.tempLabel);
             this.Controls.Add(this.freqLabel);
             this.Controls.Add(this.freqTextBox);
@@ -220,6 +254,13 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.RadioButton commaRadioButton;
+        private System.Windows.Forms.RadioButton newLineRadioButton;
+
+        private System.Windows.Forms.Label seperatorLabel;
+
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
 
         private System.Windows.Forms.Label freqLabel;
         private System.Windows.Forms.Label tempLabel;

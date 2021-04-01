@@ -8,8 +8,9 @@ namespace rtssh
 {
     internal static class SSHStream
     {
-        public static void Start(string username, string host, int port, string keyPath, string jsonPath, string tempText, string freqText)
+        public static void Start(string username, string host, int port, string keyPath, string jsonPath, string tempText, string freqText, bool separatorFlag)
         {
+            var separatorText = separatorFlag ? ", " : "\n";
             // Run RTSS or hook to existing process
             RTSSHandler.RunRTSS();
             PrivateKeyFile key;
@@ -57,7 +58,7 @@ namespace rtssh
                         // Formatted text ready for printing to OSD
                         var formattedPrint = tempText +
                                              (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
-                                             [jsonPathFormatted[2]] + "°\n" + freqText +
+                                             [jsonPathFormatted[2]] + "°" + separatorText + freqText +
                                              (int) (double) freqTemp["lscpu"]?[16]?["data"];
 
                         // Print cpu temp into RTSS

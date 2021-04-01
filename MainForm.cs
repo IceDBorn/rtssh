@@ -20,6 +20,11 @@ namespace rtssh
             freqTextBox.Text = Properties.Settings.Default.freqText;
             autoConnectCheckBox.Checked = Properties.Settings.Default.autoConnect;
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
+            commaRadioButton.Checked = Properties.Settings.Default.separatorComma;
+            if (!commaRadioButton.Checked)
+            {
+                newLineRadioButton.Checked = true;
+            }
 
             // Connect if Auto Connect is enabled
             if (usernameTextBox.Text.Length <= 0 || hostTextBox.Text.Length <= 0 || portTextBox.Text.Length <= 0 ||
@@ -73,7 +78,8 @@ namespace rtssh
                     keyTextBox.Text,
                     jsonPathTextBox.Text,
                     tempTextBox.Text,
-                    freqTextBox.Text
+                    freqTextBox.Text,
+                    commaRadioButton.Checked
                 ));
                 _thread.Start();
 
@@ -87,7 +93,8 @@ namespace rtssh
                         jsonPathTextBox.Text,
                         autoConnectCheckBox.Checked,
                         tempTextBox.Text,
-                        freqTextBox.Text);
+                        freqTextBox.Text,
+                        commaRadioButton.Checked);
                 }
                 else
                 {

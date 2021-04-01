@@ -130,5 +130,17 @@ namespace rtssh.Properties {
                 this["freqText"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool separatorComma {
+            get {
+                return ((bool)(this["separatorComma"]));
+            }
+            set {
+                this["separatorComma"] = value;
+            }
+        }
     }
 }
