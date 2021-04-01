@@ -26,6 +26,28 @@ namespace rtssh
                 newLineRadioButton.Checked = true;
             }
 
+            switch (Properties.Settings.Default.displayToggle)
+            {
+                // temp
+                case 0:
+                {
+                    tempRadioButton.Checked = true;
+                    break;
+                }
+                // freq
+                case 1:
+                {
+                    freqRadioButton.Checked = true;
+                    break;
+                }
+                // both
+                case 2:
+                {
+                    bothRadioButton.Checked = true;
+                    break;
+                }
+            }
+
             // Connect if Auto Connect is enabled
             if (usernameTextBox.Text.Length <= 0 || hostTextBox.Text.Length <= 0 || portTextBox.Text.Length <= 0 ||
                 keyTextBox.Text.Length <= 0 || jsonPathTextBox.Text.Length <= 0 || !autoConnectCheckBox.Checked) return;
@@ -70,6 +92,21 @@ namespace rtssh
                     Console.WriteLine(e);
                 }
 
+                int displayToggle;
+                
+                if (tempRadioButton.Checked)
+                {
+                    displayToggle = 0;
+                }
+                else if (freqRadioButton.Checked)
+                {
+                    displayToggle = 1;
+                }
+                else
+                {
+                    displayToggle = 2;
+                }
+
                 // Start new ssh connection thread
                 _thread = new Thread(() => SSHStream.Start(
                     usernameTextBox.Text,
@@ -79,7 +116,8 @@ namespace rtssh
                     jsonPathTextBox.Text,
                     tempTextBox.Text,
                     freqTextBox.Text,
-                    commaRadioButton.Checked
+                    commaRadioButton.Checked,
+                    displayToggle
                 ));
                 _thread.Start();
 
@@ -94,7 +132,8 @@ namespace rtssh
                         autoConnectCheckBox.Checked,
                         tempTextBox.Text,
                         freqTextBox.Text,
-                        commaRadioButton.Checked);
+                        commaRadioButton.Checked,
+                        displayToggle);
                 }
                 else
                 {

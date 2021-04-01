@@ -8,7 +8,8 @@ namespace rtssh
 {
     internal static class SSHStream
     {
-        public static void Start(string username, string host, int port, string keyPath, string jsonPath, string tempText, string freqText, bool separatorFlag)
+        public static void Start(string username, string host, int port, string keyPath, string jsonPath,
+            string tempText, string freqText, bool separatorFlag, int displayToggle)
         {
             var separatorText = separatorFlag ? ", " : "\n";
             // Run RTSS or hook to existing process
@@ -54,12 +55,35 @@ namespace rtssh
 
                         // Split jsonPath with , into a string Array
                         var jsonPathFormatted = JsonPathFormatter(jsonPath);
+                        var formattedPrint = "";
 
-                        // Formatted text ready for printing to OSD
-                        var formattedPrint = tempText +
-                                             (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
-                                             [jsonPathFormatted[2]] + "°" + separatorText + freqText +
-                                             (int) (double) freqTemp["lscpu"]?[16]?["data"];
+                        // Ready formatted text  for printing to OSD
+                        switch (displayToggle)
+                        {
+                            // temp
+                            case 0:
+                            {
+                                formattedPrint = tempText +
+                                                 (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
+                                                 [jsonPathFormatted[2]] + "°";
+                                break;
+                            }
+                            // freq
+                            case 1:
+                            {
+                                formattedPrint = freqText + (int) (double) freqTemp["lscpu"]?[16]?["data"];
+                                break;
+                            }
+                            // both
+                            case 2:
+                            {
+                                formattedPrint = tempText +
+                                                 (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
+                                                     [jsonPathFormatted[2]] + "°" + separatorText + freqText +
+                                                 (int) (double) freqTemp["lscpu"]?[16]?["data"];
+                                break;
+                            }
+                        }
 
                         // Print cpu temp into RTSS
                         RTSSHandler.Print(formattedPrint);
