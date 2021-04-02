@@ -2,7 +2,9 @@ namespace rtssh
 {
     public static class Settings
     {
-        public static void Save(string username, string host, string port, string key, string jsonPath, bool autoConnect, string tempText, string freqText, bool separatorComma, int displayToggle)
+        public static void Save(string username, string host, string port, string key, string jsonPath,
+            bool autoConnect, string tempText, string freqText, bool separatorComma, int displayToggle,
+            string refreshInterval)
         {
             // Change each setting with user's value
             Properties.Settings.Default["username"] = username;
@@ -16,6 +18,7 @@ namespace rtssh
             Properties.Settings.Default["freqText"] = freqText;
             Properties.Settings.Default["separatorComma"] = separatorComma;
             Properties.Settings.Default["displayToggle"] = displayToggle;
+            Properties.Settings.Default["refreshInterval"] = refreshInterval;
             Properties.Settings.Default.Save();
         }
 
@@ -33,6 +36,7 @@ namespace rtssh
             Properties.Settings.Default["freqText"] = "CPU ";
             Properties.Settings.Default["separatorComma"] = true;
             Properties.Settings.Default["displayToggle"] = 2;
+            Properties.Settings.Default["refreshInterval"] = 1000;
             Properties.Settings.Default.Save();
         }
     }
