@@ -7,6 +7,7 @@ namespace rtssh
     public partial class MainForm : Form
     {
         private Thread _thread;
+
         public MainForm()
         {
             InitializeComponent();
@@ -21,6 +22,8 @@ namespace rtssh
             autoConnectCheckBox.Checked = Properties.Settings.Default.autoConnect;
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
             commaRadioButton.Checked = Properties.Settings.Default.separatorComma;
+            refreshIntervalTextBox.Text = Properties.Settings.Default.refreshInterval;
+            
             if (!commaRadioButton.Checked)
             {
                 newLineRadioButton.Checked = true;
@@ -71,15 +74,14 @@ namespace rtssh
                 Console.WriteLine(ex);
             }
         }
-        
-        //Methods
 
+        //Methods
         private void Connect()
         {
             if (usernameTextBox.Text.Length > 0 && hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 &&
                 keyTextBox.Text.Length > 0 && jsonPathTextBox.Text.Length > 0)
             {
-                // Check if a thread is running and then kill it 
+                // Check if a thread is running and kill it 
                 try
                 {
                     if (_thread.IsAlive)
@@ -93,7 +95,7 @@ namespace rtssh
                 }
 
                 int displayToggle;
-                
+
                 if (tempRadioButton.Checked)
                 {
                     displayToggle = 0;
@@ -102,6 +104,7 @@ namespace rtssh
                 {
                     displayToggle = 1;
                 }
+                //both
                 else
                 {
                     displayToggle = 2;
@@ -117,7 +120,8 @@ namespace rtssh
                     tempTextBox.Text,
                     freqTextBox.Text,
                     commaRadioButton.Checked,
-                    displayToggle
+                    displayToggle,
+                    refreshIntervalTextBox.Text
                 ));
                 _thread.Start();
 
@@ -133,7 +137,8 @@ namespace rtssh
                         tempTextBox.Text,
                         freqTextBox.Text,
                         commaRadioButton.Checked,
-                        displayToggle);
+                        displayToggle,
+                        refreshIntervalTextBox.Text);
                 }
                 else
                 {

@@ -154,5 +154,17 @@ namespace rtssh.Properties {
                 this["displayToggle"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string refreshInterval {
+            get {
+                return ((string)(this["refreshInterval"]));
+            }
+            set {
+                this["refreshInterval"] = value;
+            }
+        }
     }
 }
