@@ -12,6 +12,59 @@ namespace rtssh
         public MainForm()
         {
             InitializeComponent();
+            InitializeValues();
+        }
+
+        private void connectButton_Click(object sender, EventArgs e)
+        {
+            Connect();
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ThreadKiller();
+        }
+        
+        private void keyBrowserButton_Click(object sender, EventArgs e)
+        {
+            keyBrowser.ShowDialog();
+            if (keyBrowser.FileName.Length > 0)
+            {
+                keyTextBox.Text = keyBrowser.FileName;
+            }
+        }
+
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            // Bring form foreground
+            WindowState = FormWindowState.Normal;
+
+            // Hide tray icon
+            trayIcon.Visible = false;
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized) return;
+
+            // Hide form
+            Hide();
+
+            // Show tray icon
+            trayIcon.Visible = true;
+        }
+
+        private void saveSettingsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (saveSettingsCheckBox.Checked) return;
+            Settings.Clear();
+        }
+
+        //Methods
+
+        private void InitializeValues()
+        {
             // Initialize all textboxes and checkboxes
             usernameTextBox.Text = Properties.Settings.Default.username;
             hostTextBox.Text = Properties.Settings.Default.host;
@@ -57,55 +110,7 @@ namespace rtssh
                 keyTextBox.Text.Length <= 0 || jsonPathTextBox.Text.Length <= 0 || !autoConnectCheckBox.Checked) return;
             Connect();
         }
-
-        private void connectButton_Click(object sender, EventArgs e)
-        {
-            Connect();
-        }
-
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            // Stop the ssh connection when the form is closed
-            ThreadKiller();
-        }
         
-        private void keyBrowserButton_Click(object sender, EventArgs e)
-        {
-            keyBrowser.ShowDialog();
-            if (keyBrowser.FileName.Length > 0)
-            {
-                keyTextBox.Text = keyBrowser.FileName;
-            }
-        }
-
-        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            Show();
-            // Bring form foreground
-            WindowState = FormWindowState.Normal;
-
-            // Hide tray icon
-            trayIcon.Visible = false;
-        }
-
-        private void MainForm_SizeChanged(object sender, EventArgs e)
-        {
-            if (WindowState != FormWindowState.Minimized) return;
-
-            // Hide form
-            Hide();
-
-            // Show tray icon
-            trayIcon.Visible = true;
-        }
-
-        private void saveSettingsCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (saveSettingsCheckBox.Checked) return;
-            Settings.Clear();
-        }
-
-        //Methods
         private void Connect()
         {
             ThreadKiller();

@@ -175,8 +175,11 @@ namespace rtssh
                     }
                 }
 
-                // Print cpu temp into RTSS
-                RTSSHandler.Print(formattedPrint);
+                if (!string.IsNullOrEmpty(formattedPrint))
+                {
+                    // Print cpu temp into RTSS
+                    RTSSHandler.Print(formattedPrint);
+                }
 
                 // Wait for given seconds before updating cpu temp
                 Thread.Sleep(refreshIntervalInt * 1000);
