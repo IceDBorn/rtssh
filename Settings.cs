@@ -36,7 +36,7 @@ namespace rtssh
             Properties.Settings.Default["freqText"] = "CPU ";
             Properties.Settings.Default["separatorComma"] = true;
             Properties.Settings.Default["displayToggle"] = 2;
-            Properties.Settings.Default["refreshInterval"] = 1000;
+            Properties.Settings.Default["refreshInterval"] = "1000";
             Properties.Settings.Default.Save();
         }
     }
