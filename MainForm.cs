@@ -23,7 +23,7 @@ namespace rtssh
             autoConnectCheckBox.Checked = Properties.Settings.Default.autoConnect;
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
             commaRadioButton.Checked = Properties.Settings.Default.separatorComma;
-            refreshIntervalTextBox.Text = Properties.Settings.Default.refreshInterval;
+            RefreshIntervalNumeric.Text = Properties.Settings.Default.refreshInterval;
 
             if (!commaRadioButton.Checked)
             {
@@ -159,7 +159,7 @@ namespace rtssh
                 freqTextBox.Text,
                 commaRadioButton.Checked,
                 displayToggle,
-                refreshIntervalTextBox.Text
+                RefreshIntervalNumeric.Text
             ));
             _thread.Start();
             
@@ -201,7 +201,7 @@ namespace rtssh
                     freqTextBox.Text,
                     commaRadioButton.Checked,
                     displayToggle,
-                    refreshIntervalTextBox.Text);
+                    RefreshIntervalNumeric.Text);
             }
         }
     }

@@ -54,14 +54,15 @@
             this.bothRadioButton = new System.Windows.Forms.RadioButton();
             this.tempRadioButton = new System.Windows.Forms.RadioButton();
             this.freqRadioButton = new System.Windows.Forms.RadioButton();
-            this.refreshIntervalTextBox = new System.Windows.Forms.TextBox();
             this.refreshIntervalLabel = new System.Windows.Forms.Label();
             this.keyTextBox = new System.Windows.Forms.TextBox();
             this.keyBrowser = new System.Windows.Forms.OpenFileDialog();
             this.keyBrowserButton = new System.Windows.Forms.Button();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.RefreshIntervalNumeric = new System.Windows.Forms.NumericUpDown();
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.RefreshIntervalNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -268,13 +269,6 @@
             this.freqRadioButton.Text = "frequency";
             this.freqRadioButton.UseVisualStyleBackColor = true;
             // 
-            // refreshIntervalTextBox
-            // 
-            this.refreshIntervalTextBox.Location = new System.Drawing.Point(305, 175);
-            this.refreshIntervalTextBox.Name = "refreshIntervalTextBox";
-            this.refreshIntervalTextBox.Size = new System.Drawing.Size(100, 20);
-            this.refreshIntervalTextBox.TabIndex = 25;
-            // 
             // refreshIntervalLabel
             // 
             this.refreshIntervalLabel.Location = new System.Drawing.Point(305, 155);
@@ -307,15 +301,25 @@
             this.trayIcon.Text = "rtssh";
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
             // 
+            // RefreshIntervalNumeric
+            // 
+            this.RefreshIntervalNumeric.Location = new System.Drawing.Point(387, 153);
+            this.RefreshIntervalNumeric.Minimum = new decimal(new int[] {1, 0, 0, 0});
+            this.RefreshIntervalNumeric.Name = "RefreshIntervalNumeric";
+            this.RefreshIntervalNumeric.Size = new System.Drawing.Size(39, 20);
+            this.RefreshIntervalNumeric.TabIndex = 28;
+            this.RefreshIntervalNumeric.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RefreshIntervalNumeric.Value = new decimal(new int[] {1, 0, 0, 0});
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(421, 269);
+            this.ClientSize = new System.Drawing.Size(439, 269);
+            this.Controls.Add(this.RefreshIntervalNumeric);
             this.Controls.Add(this.keyBrowserButton);
             this.Controls.Add(this.refreshIntervalLabel);
-            this.Controls.Add(this.refreshIntervalTextBox);
             this.Controls.Add(this.displayGroupBox);
             this.Controls.Add(this.seperatorGroupBox);
             this.Controls.Add(this.tempLabel);
@@ -343,9 +347,12 @@
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.seperatorGroupBox.ResumeLayout(false);
             this.displayGroupBox.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize) (this.RefreshIntervalNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.NumericUpDown RefreshIntervalNumeric;
 
         private System.Windows.Forms.NotifyIcon trayIcon;
 
@@ -355,7 +362,6 @@
         private System.Windows.Forms.OpenFileDialog keyBrowser;
 
         private System.Windows.Forms.Label refreshIntervalLabel;
-        private System.Windows.Forms.TextBox refreshIntervalTextBox;
 
         private System.Windows.Forms.GroupBox displayGroupBox;
         private System.Windows.Forms.RadioButton tempRadioButton;
