@@ -33,7 +33,6 @@
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.hostTextBox = new System.Windows.Forms.TextBox();
             this.portTextBox = new System.Windows.Forms.TextBox();
-            this.keyTextBox = new System.Windows.Forms.TextBox();
             this.connectButton = new System.Windows.Forms.Button();
             this.usernameLabel = new System.Windows.Forms.Label();
             this.hostLabel = new System.Windows.Forms.Label();
@@ -56,6 +55,9 @@
             this.freqRadioButton = new System.Windows.Forms.RadioButton();
             this.refreshIntervalTextBox = new System.Windows.Forms.TextBox();
             this.refreshIntervalLabel = new System.Windows.Forms.Label();
+            this.keyTextBox = new System.Windows.Forms.TextBox();
+            this.keyBrowser = new System.Windows.Forms.OpenFileDialog();
+            this.keyBrowserButton = new System.Windows.Forms.Button();
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -84,17 +86,9 @@
             this.portTextBox.TabIndex = 2;
             this.portTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // keyTextBox
-            // 
-            this.keyTextBox.Location = new System.Drawing.Point(76, 120);
-            this.keyTextBox.Name = "keyTextBox";
-            this.keyTextBox.Size = new System.Drawing.Size(100, 20);
-            this.keyTextBox.TabIndex = 3;
-            this.keyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(90, 193);
+            this.connectButton.Location = new System.Drawing.Point(162, 234);
             this.connectButton.Name = "connectButton";
             this.connectButton.Size = new System.Drawing.Size(75, 23);
             this.connectButton.TabIndex = 4;
@@ -154,7 +148,7 @@
             // 
             // jsonPathTextBox
             // 
-            this.jsonPathTextBox.Location = new System.Drawing.Point(76, 155);
+            this.jsonPathTextBox.Location = new System.Drawing.Point(76, 198);
             this.jsonPathTextBox.Name = "jsonPathTextBox";
             this.jsonPathTextBox.Size = new System.Drawing.Size(100, 20);
             this.jsonPathTextBox.TabIndex = 11;
@@ -162,7 +156,7 @@
             // 
             // jsonPathLabel
             // 
-            this.jsonPathLabel.Location = new System.Drawing.Point(11, 158);
+            this.jsonPathLabel.Location = new System.Drawing.Point(12, 201);
             this.jsonPathLabel.Name = "jsonPathLabel";
             this.jsonPathLabel.Size = new System.Drawing.Size(40, 12);
             this.jsonPathLabel.TabIndex = 12;
@@ -286,12 +280,31 @@
             this.refreshIntervalLabel.TabIndex = 26;
             this.refreshIntervalLabel.Text = "Refresh Interval:";
             // 
+            // keyTextBox
+            // 
+            this.keyTextBox.Location = new System.Drawing.Point(76, 120);
+            this.keyTextBox.Name = "keyTextBox";
+            this.keyTextBox.Size = new System.Drawing.Size(100, 20);
+            this.keyTextBox.TabIndex = 3;
+            this.keyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // keyBrowserButton
+            // 
+            this.keyBrowserButton.Location = new System.Drawing.Point(90, 155);
+            this.keyBrowserButton.Name = "keyBrowserButton";
+            this.keyBrowserButton.Size = new System.Drawing.Size(75, 23);
+            this.keyBrowserButton.TabIndex = 27;
+            this.keyBrowserButton.Text = "Browse";
+            this.keyBrowserButton.UseVisualStyleBackColor = true;
+            this.keyBrowserButton.Click += new System.EventHandler(this.keyBrowserButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(421, 230);
+            this.ClientSize = new System.Drawing.Size(421, 269);
+            this.Controls.Add(this.keyBrowserButton);
             this.Controls.Add(this.refreshIntervalLabel);
             this.Controls.Add(this.refreshIntervalTextBox);
             this.Controls.Add(this.displayGroupBox);
@@ -314,15 +327,20 @@
             this.Controls.Add(this.hostTextBox);
             this.Controls.Add(this.usernameTextBox);
             this.Icon = ((System.Drawing.Icon) (resources.GetObject("$this.Icon")));
+            this.Location = new System.Drawing.Point(15, 15);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "rtssh";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.seperatorGroupBox.ResumeLayout(false);
             this.displayGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button keyBrowserButton;
+
+        private System.Windows.Forms.TextBox keyTextBox;
+        private System.Windows.Forms.OpenFileDialog keyBrowser;
 
         private System.Windows.Forms.Label refreshIntervalLabel;
         private System.Windows.Forms.TextBox refreshIntervalTextBox;
@@ -355,7 +373,6 @@
         private System.Windows.Forms.Label usernameLabel;
 
         private System.Windows.Forms.Button connectButton;
-        private System.Windows.Forms.TextBox keyTextBox;
 
         private System.Windows.Forms.TextBox usernameTextBox;
         private System.Windows.Forms.TextBox hostTextBox;
