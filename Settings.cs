@@ -28,7 +28,7 @@ namespace rtssh
             Properties.Settings.Default["Username"] = "";
             Properties.Settings.Default["Host"] = "192.168.122.1";
             Properties.Settings.Default["Port"] = "22";
-            Properties.Settings.Default["Key"] = "id_rsa";
+            Properties.Settings.Default["Key"] = "";
             Properties.Settings.Default["jsonPath"] = "";
             Properties.Settings.Default["autoConnect"] = false;
             Properties.Settings.Default["saveSettings"] = false;

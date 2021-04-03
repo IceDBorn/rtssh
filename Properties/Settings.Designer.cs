@@ -61,7 +61,7 @@ namespace rtssh.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("id_rsa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string key {
             get {
                 return ((string)(this["key"]));

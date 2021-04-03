@@ -150,5 +150,14 @@ namespace rtssh
                 MessageBox.Show(@"Fill in all values");
             }
         }
+
+        private void keyBrowserButton_Click(object sender, EventArgs e)
+        {
+            keyBrowser.ShowDialog();
+            if (keyBrowser.FileName.Length > 0)
+            {
+                keyTextBox.Text = keyBrowser.FileName;
+            }
+        }
     }
 }
