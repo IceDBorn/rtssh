@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -65,88 +66,9 @@ namespace rtssh
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // Stop the ssh connection when the form is closed
-            try
-            {
-                _thread.Abort();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
+            ThreadKiller();
         }
-
-        //Methods
-        private void Connect()
-        {
-            if (usernameTextBox.Text.Length > 0 && hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 &&
-                keyTextBox.Text.Length > 0 && jsonPathTextBox.Text.Length > 0)
-            {
-                // Check if a thread is running and kill it 
-                try
-                {
-                    if (_thread.IsAlive)
-                    {
-                        _thread.Abort();
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
-
-                int displayToggle;
-
-                if (tempRadioButton.Checked)
-                {
-                    displayToggle = 0;
-                }
-                else if (freqRadioButton.Checked)
-                {
-                    displayToggle = 1;
-                }
-                //both
-                else
-                {
-                    displayToggle = 2;
-                }
-
-                // Start new ssh connection thread
-                _thread = new Thread(() => SSHStream.Start(
-                    usernameTextBox.Text,
-                    hostTextBox.Text,
-                    int.Parse(portTextBox.Text),
-                    keyTextBox.Text,
-                    jsonPathTextBox.Text,
-                    tempTextBox.Text,
-                    freqTextBox.Text,
-                    commaRadioButton.Checked,
-                    displayToggle,
-                    refreshIntervalTextBox.Text
-                ));
-                _thread.Start();
-
-                // Save or clear settings
-                if (saveSettingsCheckBox.Checked)
-                {
-                    Settings.Save(usernameTextBox.Text,
-                        hostTextBox.Text,
-                        portTextBox.Text,
-                        keyTextBox.Text,
-                        jsonPathTextBox.Text,
-                        autoConnectCheckBox.Checked,
-                        tempTextBox.Text,
-                        freqTextBox.Text,
-                        commaRadioButton.Checked,
-                        displayToggle,
-                        refreshIntervalTextBox.Text);
-                }
-            }
-            else
-            {
-                MessageBox.Show(@"Fill in all values");
-            }
-        }
-
+        
         private void keyBrowserButton_Click(object sender, EventArgs e)
         {
             keyBrowser.ShowDialog();
@@ -181,6 +103,106 @@ namespace rtssh
         {
             if (saveSettingsCheckBox.Checked) return;
             Settings.Clear();
+        }
+
+        //Methods
+        private void Connect()
+        {
+            ThreadKiller();
+            
+            switch (usernameTextBox.Text.Length > 0)
+            {
+                case true when hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 && keyTextBox.Text.Length > 0 && jsonPathTextBox.Text.Length > 0:
+                case true when hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 && keyTextBox.Text.Length > 0 && freqRadioButton.Checked:
+                    ThreadMaker();
+                    break;
+                default:
+                {
+                    SystemSounds.Beep.Play();
+                    MessageBox.Show(freqRadioButton.Checked
+                        ? @"Fill in all values except JSON"
+                        : @"Fill in all values");
+
+                    break;
+                }
+            }
+        }
+        
+        private void ThreadKiller()
+        {
+            // Check if a thread is running and kill it 
+            try
+            {
+                if (_thread.IsAlive)
+                {
+                    _thread.Abort();
+                }
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        private void ThreadMaker()
+        {
+            var displayToggle = DisplayToggle();
+
+            // Start new ssh connection thread
+            _thread = new Thread(() => SSHStream.Start(
+                usernameTextBox.Text,
+                hostTextBox.Text,
+                int.Parse(portTextBox.Text),
+                keyTextBox.Text,
+                jsonPathTextBox.Text,
+                tempTextBox.Text,
+                freqTextBox.Text,
+                commaRadioButton.Checked,
+                displayToggle,
+                refreshIntervalTextBox.Text
+            ));
+            _thread.Start();
+            
+            SaveSettings(displayToggle);
+        }
+        
+        private int DisplayToggle()
+        {
+            int displayToggle;
+            if (tempRadioButton.Checked)
+            {
+                displayToggle = 0;
+            }
+            else if (freqRadioButton.Checked)
+            {
+                displayToggle = 1;
+            }
+            //both
+            else
+            {
+                displayToggle = 2;
+            }
+
+            return displayToggle;
+        }
+
+        private void SaveSettings(int displayToggle)
+        {
+            // Save or clear settings
+            if (saveSettingsCheckBox.Checked)
+            {
+                Settings.Save(usernameTextBox.Text,
+                    hostTextBox.Text,
+                    portTextBox.Text,
+                    keyTextBox.Text,
+                    jsonPathTextBox.Text,
+                    autoConnectCheckBox.Checked,
+                    tempTextBox.Text,
+                    freqTextBox.Text,
+                    commaRadioButton.Checked,
+                    displayToggle,
+                    refreshIntervalTextBox.Text);
+            }
         }
     }
 }

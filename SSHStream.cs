@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
@@ -25,87 +26,157 @@ namespace rtssh
             }
             catch (Exception e)
             {
+                SystemSounds.Beep.Play();
                 MessageBox.Show(e.Message);
                 return;
             }
 
             // Connect to ssh client
             var sshClient = new SshClient(host, port, username, key);
-            sshClient.Connect();
 
-            // Stream sensors -j
-            var tempStream = sshClient.CreateShellStream("temp",
-                0, 0, 0, 0, 1024);
-            var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
+            try
+            {
+                sshClient.Connect();
+            }
+            catch (Exception e)
+            {
+                SystemSounds.Beep.Play();
+                MessageBox.Show(e.Message);
+                return;
+            }
 
-            // Stream lscpu -J
-            var freqStream = sshClient.CreateShellStream("freq",
-                0, 0, 0, 0, 1024);
-            var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
+            ShellStream tempStream = null;
+            ShellStream freqStream = null;
 
-            // Execute commands on both streams
-            tempStream.WriteLine(tempCommand);
-            freqStream.WriteLine(freqCommand);
+            switch (displayToggle)
+            {
+                case 0:
+                {
+                    // Stream sensors -j
+                    tempStream = sshClient.CreateShellStream("temp",
+                        0, 0, 0, 0, 1024);
+                    var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
+                    
+                    // Execute command
+                    tempStream.WriteLine(tempCommand);
+                    break;
+                }
+                case 1:
+                {
+                    // Stream lscpu -J
+                    freqStream = sshClient.CreateShellStream("freq",
+                        0, 0, 0, 0, 1024);
+                    var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
+                    
+                    // Execute command
+                    freqStream.WriteLine(freqCommand);
+                    break;
+                }
+                case 2:
+                {
+                    // Stream sensors -j & lscpu -J
+                    tempStream = sshClient.CreateShellStream("temp",
+                        0, 0, 0, 0, 1024);
+                    freqStream = sshClient.CreateShellStream("freq",
+                        0, 0, 0, 0, 1024);
+                    
+                    var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
+                    var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
+                    
+                    // Execute commands
+                    tempStream.WriteLine(tempCommand);
+                    freqStream.WriteLine(freqCommand);
+                    break;
+                }
+            }
 
             // Loop until form closes
             while (true)
             {
-                // Save ssh output into string
-                var tempOutput = tempStream.Read();
-                var freqOutput = freqStream.Read();
+                // Convert output into JObject
+                JObject jsonTemp;
+                JObject freqTemp;
 
-                // Export total cpu temp and freq from ssh output
-                try
+                // Split jsonPath with , into a string Array
+                var jsonPathFormatted = JsonPathFormatter(jsonPath);
+
+                // Ready formatted text  for printing to OSD
+                var formattedPrint = "";
+                string tempOutput;
+                string freqOutput;
+
+                switch (displayToggle)
                 {
-                    if (tempOutput.Length > 0 && tempOutput.StartsWith("{") && freqOutput.Length > 0 &&
-                        freqOutput.StartsWith("{"))
+                    // temp
+                    case 0:
                     {
-                        // Convert output into JObject
-                        var jsonTemp = JObject.Parse(tempOutput);
-                        var freqTemp = JObject.Parse(freqOutput);
+                        tempOutput = tempStream?.Read();
 
-                        // Split jsonPath with , into a string Array
-                        var jsonPathFormatted = JsonPathFormatter(jsonPath);
-
-                        // Ready formatted text  for printing to OSD
-                        var formattedPrint = "";
-                        switch (displayToggle)
+                        if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{"))
                         {
-                            // temp
-                            case 0:
+                            jsonTemp = JObject.Parse(tempOutput);
+
+                            try
                             {
                                 formattedPrint = tempText +
                                                  (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
                                                      [jsonPathFormatted[2]] + "°";
-                                break;
                             }
-                            // freq
-                            case 1:
+                            catch (Exception e)
                             {
-                                formattedPrint = freqText + (int) (double) freqTemp["lscpu"]?[16]?["data"];
-                                break;
+                                MessageBox.Show(@"Could not parse JSON");
+                                return;
                             }
-                            // both
-                            case 2:
+                        }
+                        break;
+                    }
+                    // freq
+                    case 1:
+                    {
+                        freqOutput = freqStream?.Read();
+
+
+                        if (!string.IsNullOrEmpty(freqOutput) && freqOutput.StartsWith("{"))
+                        {
+                            freqTemp = JObject.Parse(freqOutput);
+
+                            formattedPrint = freqText + (int) (double) freqTemp["lscpu"]?[16]?["data"];
+                        }
+                        break;
+                    }
+                    // both
+                    case 2:
+                    {
+                        tempOutput = tempStream?.Read();
+                        freqOutput = freqStream?.Read();
+
+
+                        if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{") &&
+                            !string.IsNullOrEmpty(freqOutput) && freqOutput.StartsWith("{"))
+                        {
+                            jsonTemp = JObject.Parse(tempOutput);
+                            freqTemp = JObject.Parse(freqOutput);
+
+                            try
                             {
                                 formattedPrint = tempText +
                                                  (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
                                                      [jsonPathFormatted[2]] + "°" + separatorText + freqText +
                                                  (int) (double) freqTemp["lscpu"]?[16]?["data"];
-                                break;
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(@"Could not parse JSON");
+                                return;
                             }
                         }
 
-                        // Print cpu temp into RTSS
-                        RTSSHandler.Print(formattedPrint);
+                        break;
                     }
                 }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.Message);
-                    sshClient.Disconnect();
-                    return;
-                }
+
+                // Print cpu temp into RTSS
+                RTSSHandler.Print(formattedPrint);
 
                 // Wait for given seconds before updating cpu temp
                 Thread.Sleep(refreshIntervalInt * 1000);
