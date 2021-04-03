@@ -29,6 +29,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.hostTextBox = new System.Windows.Forms.TextBox();
@@ -58,6 +59,7 @@
             this.keyTextBox = new System.Windows.Forms.TextBox();
             this.keyBrowser = new System.Windows.Forms.OpenFileDialog();
             this.keyBrowserButton = new System.Windows.Forms.Button();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -298,6 +300,12 @@
             this.keyBrowserButton.UseVisualStyleBackColor = true;
             this.keyBrowserButton.Click += new System.EventHandler(this.keyBrowserButton_Click);
             // 
+            // trayIcon
+            // 
+            this.trayIcon.Icon = ((System.Drawing.Icon) (resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "rtssh";
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -331,11 +339,14 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.seperatorGroupBox.ResumeLayout(false);
             this.displayGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.NotifyIcon trayIcon;
 
         private System.Windows.Forms.Button keyBrowserButton;
 

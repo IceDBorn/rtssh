@@ -159,5 +159,26 @@ namespace rtssh
                 keyTextBox.Text = keyBrowser.FileName;
             }
         }
+
+        private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            // Bring form foreground
+            WindowState = FormWindowState.Normal;
+            
+            // Hide tray icon
+            trayIcon.Visible = false;
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState != FormWindowState.Minimized) return;
+            
+            // Hide form
+            Hide();
+                
+            // Show tray icon
+            trayIcon.Visible = true;
+        }
     }
 }
