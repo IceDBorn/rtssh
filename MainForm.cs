@@ -23,7 +23,7 @@ namespace rtssh
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
             commaRadioButton.Checked = Properties.Settings.Default.separatorComma;
             refreshIntervalTextBox.Text = Properties.Settings.Default.refreshInterval;
-            
+
             if (!commaRadioButton.Checked)
             {
                 newLineRadioButton.Checked = true;
@@ -140,10 +140,6 @@ namespace rtssh
                         displayToggle,
                         refreshIntervalTextBox.Text);
                 }
-                else
-                {
-                    Settings.Clear();
-                }
             }
             else
             {
@@ -165,7 +161,7 @@ namespace rtssh
             Show();
             // Bring form foreground
             WindowState = FormWindowState.Normal;
-            
+
             // Hide tray icon
             trayIcon.Visible = false;
         }
@@ -173,12 +169,18 @@ namespace rtssh
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized) return;
-            
+
             // Hide form
             Hide();
-                
+
             // Show tray icon
             trayIcon.Visible = true;
+        }
+
+        private void saveSettingsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (saveSettingsCheckBox.Checked) return;
+            Settings.Clear();
         }
     }
 }

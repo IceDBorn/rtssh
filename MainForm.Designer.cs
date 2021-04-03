@@ -147,6 +147,7 @@
             this.saveSettingsCheckBox.TabIndex = 10;
             this.saveSettingsCheckBox.Text = "Save settings";
             this.saveSettingsCheckBox.UseVisualStyleBackColor = true;
+            this.saveSettingsCheckBox.CheckedChanged += new System.EventHandler(this.saveSettingsCheckBox_CheckedChanged);
             // 
             // jsonPathTextBox
             // 
