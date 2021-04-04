@@ -4,7 +4,7 @@ namespace rtssh
     {
         public static void Save(string username, string host, string port, string key, string jsonPath,
             bool autoConnect, string tempText, string freqText, bool separatorComma, int displayToggle,
-            string refreshInterval)
+            string refreshInterval, bool startup)
         {
             // Change each setting with user's value
             Properties.Settings.Default["username"] = username;
@@ -19,6 +19,7 @@ namespace rtssh
             Properties.Settings.Default["separatorComma"] = separatorComma;
             Properties.Settings.Default["displayToggle"] = displayToggle;
             Properties.Settings.Default["refreshInterval"] = refreshInterval;
+            Properties.Settings.Default["startup"] = startup;
             Properties.Settings.Default.Save();
         }
 
@@ -37,6 +38,7 @@ namespace rtssh
             Properties.Settings.Default["separatorComma"] = true;
             Properties.Settings.Default["displayToggle"] = 2;
             Properties.Settings.Default["refreshInterval"] = "1";
+            Properties.Settings.Default["startup"] = false;
             Properties.Settings.Default.Save();
         }
     }

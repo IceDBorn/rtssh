@@ -60,6 +60,7 @@
             this.keyBrowserButton = new System.Windows.Forms.Button();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.RefreshIntervalNumeric = new System.Windows.Forms.NumericUpDown();
+            this.startupCheckBox = new System.Windows.Forms.CheckBox();
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.RefreshIntervalNumeric)).BeginInit();
@@ -311,12 +312,23 @@
             this.RefreshIntervalNumeric.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RefreshIntervalNumeric.Value = new decimal(new int[] {1, 0, 0, 0});
             // 
+            // startupCheckBox
+            // 
+            this.startupCheckBox.Location = new System.Drawing.Point(301, 13);
+            this.startupCheckBox.Name = "startupCheckBox";
+            this.startupCheckBox.Size = new System.Drawing.Size(104, 24);
+            this.startupCheckBox.TabIndex = 29;
+            this.startupCheckBox.Text = "Add to startup";
+            this.startupCheckBox.UseVisualStyleBackColor = true;
+            this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(439, 269);
+            this.Controls.Add(this.startupCheckBox);
             this.Controls.Add(this.RefreshIntervalNumeric);
             this.Controls.Add(this.keyBrowserButton);
             this.Controls.Add(this.refreshIntervalLabel);
@@ -344,6 +356,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.seperatorGroupBox.ResumeLayout(false);
             this.displayGroupBox.ResumeLayout(false);
@@ -351,6 +364,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.CheckBox startupCheckBox;
 
         private System.Windows.Forms.NumericUpDown RefreshIntervalNumeric;
 
