@@ -121,7 +121,7 @@ namespace rtssh.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("CPU")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string freqText {
             get {
                 return ((string)(this["freqText"]));
@@ -134,12 +134,12 @@ namespace rtssh.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool separatorComma {
+        public bool separatorSpace {
             get {
-                return ((bool)(this["separatorComma"]));
+                return ((bool)(this["separatorSpace"]));
             }
             set {
-                this["separatorComma"] = value;
+                this["separatorSpace"] = value;
             }
         }
         

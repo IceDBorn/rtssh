@@ -102,11 +102,11 @@ namespace rtssh
             freqTextBox.Text = Properties.Settings.Default.freqText;
             autoConnectCheckBox.Checked = Properties.Settings.Default.autoConnect;
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
-            commaRadioButton.Checked = Properties.Settings.Default.separatorComma;
+            spaceRadioButton.Checked = Properties.Settings.Default.separatorSpace;
             RefreshIntervalNumeric.Text = Properties.Settings.Default.refreshInterval;
             startupCheckBox.Checked = Properties.Settings.Default.startup;
 
-            if (!commaRadioButton.Checked)
+            if (!spaceRadioButton.Checked)
             {
                 newLineRadioButton.Checked = true;
             }
@@ -155,8 +155,8 @@ namespace rtssh
                 {
                     SystemSounds.Beep.Play();
                     MessageBox.Show(freqRadioButton.Checked
-                        ? @"Fill in all connection fields"
-                        : @"Fill in all connection fields and JSON");
+                        ? @"Fill all connection fields"
+                        : @"Fill all connection fields and JSON Path");
                     break;
                 }
             }
@@ -183,7 +183,7 @@ namespace rtssh
             var displayToggle = DisplayToggle();
 
             // Start new ssh connection thread
-            _thread = new Thread(() => SSHStream.Start(
+            _thread = new Thread(() => SshStream.Start(
                 usernameTextBox.Text,
                 hostTextBox.Text,
                 int.Parse(portTextBox.Text),
@@ -191,7 +191,7 @@ namespace rtssh
                 jsonPathTextBox.Text,
                 tempTextBox.Text,
                 freqTextBox.Text,
-                commaRadioButton.Checked,
+                spaceRadioButton.Checked,
                 displayToggle,
                 RefreshIntervalNumeric.Text
             ));
@@ -233,7 +233,7 @@ namespace rtssh
                     autoConnectCheckBox.Checked,
                     tempTextBox.Text,
                     freqTextBox.Text,
-                    commaRadioButton.Checked,
+                    spaceRadioButton.Checked,
                     displayToggle,
                     RefreshIntervalNumeric.Text,
                     startupCheckBox.Checked);
