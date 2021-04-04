@@ -7,9 +7,9 @@
 
 # How to use
 <b>Linux</b>
-1. Move private key file to Windows, usually located in `~/.ssh/` as `id_rsa`
-2. Open a terminal and run `sensors -j > sensors.json`
-3. Move sensors.json to Windows
+1. Open a terminal and run `sensors -j > sensors.json`
+2. Move sensors.json to Windows
+3. Move private key file to Windows, usually located in `~/.ssh/` as `id_rsa`
 
 <b>Windows</b>
 1. Open RTSSH
