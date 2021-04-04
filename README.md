@@ -18,7 +18,7 @@
 4. Fill host address, usually `192.168.122.1` for QEMU/KVM VMs
 5. Fill port, usually `22`
 6. Browse for the private key file
-7. If `both` or `temperature` is selected under `Display`, fill JSON Path by looking at the sensors.json and finding the path for the temperature you want to display on the OSD (e.g. for the example JSON in the image below the path is `k10temp-pci-00c3,Tctl,temp1_input'), otherwise go to the next step
+7. If `both` or `temperature` is selected under `Display`, fill JSON Path by looking at the sensors.json and finding the path for the temperature you want to display on the OSD (e.g. for the example JSON in the image below the path is `k10temp-pci-00c3,Tctl,temp1_input`), otherwise go to the next step
 8. Press Connect
 
 
