@@ -100,9 +100,10 @@
             // 
             // connectButton
             // 
-            this.connectButton.Location = new System.Drawing.Point(95, 225);
+            this.connectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.connectButton.Location = new System.Drawing.Point(12, 215);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(75, 23);
+            this.connectButton.Size = new System.Drawing.Size(246, 33);
             this.connectButton.TabIndex = 17;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
