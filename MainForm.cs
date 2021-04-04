@@ -155,9 +155,8 @@ namespace rtssh
                 {
                     SystemSounds.Beep.Play();
                     MessageBox.Show(freqRadioButton.Checked
-                        ? @"Fill in all values except JSON"
-                        : @"Fill in all values");
-
+                        ? @"Fill in all connection fields"
+                        : @"Fill in all connection fields and JSON");
                     break;
                 }
             }
