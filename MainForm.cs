@@ -2,17 +2,23 @@
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace rtssh
 {
     public partial class MainForm : Form
     {
         private Thread _thread;
+        private const string RunRegKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+        private readonly string _executablePath = "\"" + Application.ExecutablePath + "\"";
+        private const string AppName = "rtssh";
+        private readonly string[] _args;
 
-        public MainForm()
+        public MainForm(string[] args)
         {
             InitializeComponent();
             InitializeValues();
+            _args = args;
         }
 
         private void connectButton_Click(object sender, EventArgs e)
@@ -24,7 +30,7 @@ namespace rtssh
         {
             ThreadKiller();
         }
-        
+
         private void keyBrowserButton_Click(object sender, EventArgs e)
         {
             keyBrowser.ShowDialog();
@@ -36,29 +42,40 @@ namespace rtssh
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            Show();
-            // Bring form foreground
-            WindowState = FormWindowState.Normal;
-
-            // Hide tray icon
-            trayIcon.Visible = false;
+            BringToForeground();
         }
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             if (WindowState != FormWindowState.Minimized) return;
-
-            // Hide form
-            Hide();
-
-            // Show tray icon
-            trayIcon.Visible = true;
+            MinimizeToTray();
         }
 
         private void saveSettingsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (saveSettingsCheckBox.Checked) return;
             Settings.Clear();
+        }
+
+        private void startupCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (startupCheckBox.Checked)
+            {
+                AddToStartup();
+            }
+            else
+            {
+                RemoveFromStartup();
+            }
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (_args == null || _args.Length <= 0) return;
+            if (_args[0].Equals("-silent"))
+            {
+                MinimizeToTray();
+            }
         }
 
         //Methods
@@ -77,6 +94,7 @@ namespace rtssh
             saveSettingsCheckBox.Checked = Properties.Settings.Default.saveSettings;
             commaRadioButton.Checked = Properties.Settings.Default.separatorComma;
             RefreshIntervalNumeric.Text = Properties.Settings.Default.refreshInterval;
+            startupCheckBox.Checked = Properties.Settings.Default.startup;
 
             if (!commaRadioButton.Checked)
             {
@@ -110,15 +128,17 @@ namespace rtssh
                 keyTextBox.Text.Length <= 0 || jsonPathTextBox.Text.Length <= 0 || !autoConnectCheckBox.Checked) return;
             Connect();
         }
-        
+
         private void Connect()
         {
             ThreadKiller();
-            
+
             switch (usernameTextBox.Text.Length > 0)
             {
-                case true when hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 && keyTextBox.Text.Length > 0 && jsonPathTextBox.Text.Length > 0:
-                case true when hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 && keyTextBox.Text.Length > 0 && freqRadioButton.Checked:
+                case true when hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 &&
+                               keyTextBox.Text.Length > 0 && jsonPathTextBox.Text.Length > 0:
+                case true when hostTextBox.Text.Length > 0 && portTextBox.Text.Length > 0 &&
+                               keyTextBox.Text.Length > 0 && freqRadioButton.Checked:
                     ThreadMaker();
                     break;
                 default:
@@ -132,7 +152,7 @@ namespace rtssh
                 }
             }
         }
-        
+
         private void ThreadKiller()
         {
             // Check if a thread is running and kill it 
@@ -167,10 +187,10 @@ namespace rtssh
                 RefreshIntervalNumeric.Text
             ));
             _thread.Start();
-            
+
             SaveSettings(displayToggle);
         }
-        
+
         private int DisplayToggle()
         {
             int displayToggle;
@@ -206,8 +226,58 @@ namespace rtssh
                     freqTextBox.Text,
                     commaRadioButton.Checked,
                     displayToggle,
-                    RefreshIntervalNumeric.Text);
+                    RefreshIntervalNumeric.Text,
+                    startupCheckBox.Checked);
             }
+        }
+
+        private void AddToStartup()
+        {
+            // Add key to startup
+            if (IsInStartup()) return;
+            using (var key = Registry.CurrentUser.OpenSubKey(RunRegKey, true))
+            {
+                key?.SetValue(AppName, _executablePath + " -silent");
+            }
+        }
+
+        private void RemoveFromStartup()
+        {
+            // Remove key from startup
+            if (!IsInStartup()) return;
+            using (var key = Registry.CurrentUser.OpenSubKey(RunRegKey, true))
+            {
+                key?.DeleteValue(AppName, false);
+            }
+        }
+
+        private bool IsInStartup()
+        {
+            // Check if key exists
+            using (var key = Registry.CurrentUser.OpenSubKey(RunRegKey, true))
+            {
+                var value = key?.GetValue(AppName);
+                return value is string startValue && startValue.StartsWith(_executablePath);
+            }
+        }
+
+        private void MinimizeToTray()
+        {
+            // Hide form
+            Hide();
+
+            // Show tray icon
+            trayIcon.Visible = true;
+        }
+
+        private void BringToForeground()
+        {
+            Show();
+            // Bring form foreground
+            WindowState = FormWindowState.Normal;
+
+            // Hide tray icon
+            trayIcon.Visible = false;
         }
     }
 }
