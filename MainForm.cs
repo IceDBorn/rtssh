@@ -77,6 +77,16 @@ namespace rtssh
                 MinimizeToTray();
             }
         }
+        
+        private void showStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BringToForeground();
+        }
+        
+        private void exitStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
 
         //Methods
 

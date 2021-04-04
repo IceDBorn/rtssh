@@ -61,9 +61,13 @@
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.RefreshIntervalNumeric = new System.Windows.Forms.NumericUpDown();
             this.startupCheckBox = new System.Windows.Forms.CheckBox();
+            this.trayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.showStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.RefreshIntervalNumeric)).BeginInit();
+            this.trayIconContextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -298,6 +302,7 @@
             // 
             // trayIcon
             // 
+            this.trayIcon.ContextMenuStrip = this.trayIconContextMenu;
             this.trayIcon.Icon = ((System.Drawing.Icon) (resources.GetObject("trayIcon.Icon")));
             this.trayIcon.Text = "rtssh";
             this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.trayIcon_MouseDoubleClick);
@@ -321,6 +326,26 @@
             this.startupCheckBox.Text = "Add to startup";
             this.startupCheckBox.UseVisualStyleBackColor = true;
             this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
+            // 
+            // trayIconContextMenu
+            // 
+            this.trayIconContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {this.showStripMenuItem, this.exitStripMenuItem});
+            this.trayIconContextMenu.Name = "trayIconContextMenu";
+            this.trayIconContextMenu.Size = new System.Drawing.Size(104, 48);
+            // 
+            // showStripMenuItem
+            // 
+            this.showStripMenuItem.Name = "showStripMenuItem";
+            this.showStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.showStripMenuItem.Text = "Show";
+            this.showStripMenuItem.Click += new System.EventHandler(this.showStripMenuItem_Click);
+            // 
+            // exitStripMenuItem
+            // 
+            this.exitStripMenuItem.Name = "exitStripMenuItem";
+            this.exitStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitStripMenuItem.Text = "Exit";
+            this.exitStripMenuItem.Click += new System.EventHandler(this.exitStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -361,9 +386,16 @@
             this.seperatorGroupBox.ResumeLayout(false);
             this.displayGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.RefreshIntervalNumeric)).EndInit();
+            this.trayIconContextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.ToolStripMenuItem exitStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem showStripMenuItem;
+
+        private System.Windows.Forms.ContextMenuStrip trayIconContextMenu;
 
         private System.Windows.Forms.CheckBox startupCheckBox;
 
