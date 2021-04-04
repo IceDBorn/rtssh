@@ -31,9 +31,10 @@ namespace rtssh
                 return;
             }
 
-            // Connect to ssh client
+            // Create ssh client with given values
             var sshClient = new SshClient(host, port, username, key);
 
+            // Connect to ssh client
             try
             {
                 sshClient.Connect();
@@ -48,6 +49,9 @@ namespace rtssh
             ShellStream tempStream = null;
             ShellStream freqStream = null;
 
+            var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
+            var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
+
             switch (displayToggle)
             {
                 case 0:
@@ -55,8 +59,7 @@ namespace rtssh
                     // Stream sensors -j
                     tempStream = sshClient.CreateShellStream("temp",
                         0, 0, 0, 0, 1024);
-                    var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
-                    
+
                     // Execute command
                     tempStream.WriteLine(tempCommand);
                     break;
@@ -66,8 +69,7 @@ namespace rtssh
                     // Stream lscpu -J
                     freqStream = sshClient.CreateShellStream("freq",
                         0, 0, 0, 0, 1024);
-                    var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
-                    
+
                     // Execute command
                     freqStream.WriteLine(freqCommand);
                     break;
@@ -79,10 +81,7 @@ namespace rtssh
                         0, 0, 0, 0, 1024);
                     freqStream = sshClient.CreateShellStream("freq",
                         0, 0, 0, 0, 1024);
-                    
-                    var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
-                    var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
-                    
+
                     // Execute commands
                     tempStream.WriteLine(tempCommand);
                     freqStream.WriteLine(freqCommand);
@@ -96,9 +95,13 @@ namespace rtssh
                 // Convert output into JObject
                 JObject jsonTemp;
                 JObject freqTemp;
+                string[] jsonPathFormatted = null;
 
                 // Split jsonPath with , into a string Array
-                var jsonPathFormatted = JsonPathFormatter(jsonPath);
+                if (!string.IsNullOrEmpty(jsonPath))
+                {
+                    jsonPathFormatted = JsonPathFormatter(jsonPath);
+                }
 
                 // Ready formatted text  for printing to OSD
                 var formattedPrint = "";
@@ -112,7 +115,8 @@ namespace rtssh
                     {
                         tempOutput = tempStream?.Read();
 
-                        if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{"))
+                        if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{") &&
+                            jsonPathFormatted != null)
                         {
                             jsonTemp = JObject.Parse(tempOutput);
 
@@ -128,6 +132,7 @@ namespace rtssh
                                 return;
                             }
                         }
+
                         break;
                     }
                     // freq
@@ -142,6 +147,7 @@ namespace rtssh
 
                             formattedPrint = freqText + (int) (double) freqTemp["lscpu"]?[16]?["data"];
                         }
+
                         break;
                     }
                     // both
@@ -152,7 +158,8 @@ namespace rtssh
 
 
                         if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{") &&
-                            !string.IsNullOrEmpty(freqOutput) && freqOutput.StartsWith("{"))
+                            !string.IsNullOrEmpty(freqOutput) && freqOutput.StartsWith("{") &&
+                            jsonPathFormatted != null)
                         {
                             jsonTemp = JObject.Parse(tempOutput);
                             freqTemp = JObject.Parse(freqOutput);

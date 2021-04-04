@@ -173,7 +173,7 @@
             this.jsonPathLabel.Name = "jsonPathLabel";
             this.jsonPathLabel.Size = new System.Drawing.Size(180, 12);
             this.jsonPathLabel.TabIndex = 12;
-            this.jsonPathLabel.Text = "JSON:";
+            this.jsonPathLabel.Text = "JSON Path:";
             this.jsonPathLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // tempTextBox

@@ -2,52 +2,37 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Windows.Forms;
+using Microsoft.Win32;
 using RTSSSharedMemoryNET;
 
 namespace rtssh
 {
-    class RTSSHandler
+    internal static class RTSSHandler
     {
         #region Fields
-
         private static Process _rtssInstance;
-
         private static OSD _osd;
-
         #endregion
 
         #region Properties
+        // Path to RTSS
+        private static string RTSSPath {get;}
 
-        /// <summary>
-        /// Path to RTSS
-        /// </summary>
-        public static string RTSSPath { get; set; }
-
-        /// <summary>
-        /// Returns true if RTSS is running
-        /// </summary>
-        public static bool IsRunning => Process.GetProcessesByName("RTSS").Length != 0;
-
+        // Return true if RTSS is running
+        private static bool IsRunning => Process.GetProcessesByName("RTSS").Length != 0;
         #endregion
 
         #region Constructor
-
-        /// <summary>
-        /// Initializes a new instance of the RTSSHandler class
-        /// </summary>
+        // Initialize a new instance of the RTSSHandler class
         static RTSSHandler()
         {
             RTSSPath = @"C:\Program Files (x86)\RivaTuner Statistics Server\RTSS.exe";
         }
-
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Send text to RTSS
-        /// </summary>
-        /// <param name="text">Text</param>
+        // Send text to RTSS
         public static void Print(string text)
         {
             if (IsRunning)
@@ -55,10 +40,8 @@ namespace rtssh
                 _osd?.Update(text);
             }
         }
-
-        /// <summary>
-        /// Launches RTSS
-        /// </summary>
+        
+        /// Launch RTSS
         public static void RunRTSS()
         {
             if (_rtssInstance == null && !IsRunning && File.Exists(RTSSPath))
@@ -66,11 +49,11 @@ namespace rtssh
                 try
                 {
                     _rtssInstance = Process.Start(RTSSPath);
-                    Thread.Sleep(2000); // If it works, don't touch it
+                    Thread.Sleep(2000);
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine("Could not start the RTSS");
+                    Console.WriteLine(@"Could not start RTSS");
                 }
 
                 RunOSD();
@@ -80,59 +63,20 @@ namespace rtssh
                 RunOSD();
             }
         }
-
-        /// <summary>
-        /// update position to RTSS
-        /// </summary>
-        /// <param name="text">Text</param>
-        public static void Update(uint x, uint y)
+        
+        // Launches OSD
+        private static void RunOSD()
         {
-            if (IsRunning)
+            if (_osd != null) return;
+            try
             {
-                _osd?.UpdatePosition(x, y);
+                _osd = new OSD("rtssh");
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(@"Could not start OSD");
             }
         }
-
-
-        /// <summary>
-        /// Launches OSD
-        /// </summary>
-        public static void RunOSD()
-        {
-            if (_osd == null)
-            {
-                try
-                {
-                    _osd = new OSD("SHOTOVERRAY");
-                }
-                catch (Exception exc)
-                {
-                    Console.WriteLine("Could not start the OSD");
-                }
-            }
-        }
-
-        /// <summary>
-        /// Closes RTSS
-        /// </summary>
-        public static void KillRTSS()
-        {
-            if (_rtssInstance != null)
-            {
-                try
-                {
-                    _rtssInstance.Kill();
-                    _rtssInstance = null;
-                    var proc = Process.GetProcessesByName("RTSSHooksLoader64");
-                    proc[0].Kill();
-                }
-                catch (Exception)
-                {
-                    // Ignored
-                }
-            }
-        }
-
         #endregion
     }
 }
