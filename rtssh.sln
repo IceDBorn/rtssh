@@ -12,5 +12,6 @@ Global
 		{78DBDA3B-3F16-445D-9501-5F4ECF5637AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78DBDA3B-3F16-445D-9501-5F4ECF5637AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78DBDA3B-3F16-445D-9501-5F4ECF5637AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78DBDA3B-3F16-445D-9501-5F4ECF5637AF}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

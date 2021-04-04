@@ -33,8 +33,8 @@ namespace rtssh
             Properties.Settings.Default["jsonPath"] = "";
             Properties.Settings.Default["autoConnect"] = false;
             Properties.Settings.Default["saveSettings"] = false;
-            Properties.Settings.Default["tempText"] = "CPU ";
-            Properties.Settings.Default["freqText"] = "CPU ";
+            Properties.Settings.Default["tempText"] = "CPU";
+            Properties.Settings.Default["freqText"] = "CPU";
             Properties.Settings.Default["separatorComma"] = true;
             Properties.Settings.Default["displayToggle"] = 2;
             Properties.Settings.Default["refreshInterval"] = "1";

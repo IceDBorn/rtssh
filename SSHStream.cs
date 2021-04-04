@@ -122,7 +122,7 @@ namespace rtssh
 
                             try
                             {
-                                formattedPrint = tempText +
+                                formattedPrint = tempText + " " +
                                                  (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
                                                      [jsonPathFormatted[2]] + "°";
                             }
@@ -145,7 +145,7 @@ namespace rtssh
                         {
                             freqTemp = JObject.Parse(freqOutput);
 
-                            formattedPrint = freqText + (int) (double) freqTemp["lscpu"]?[16]?["data"];
+                            formattedPrint = freqText + " " + (int) (double) freqTemp["lscpu"]?[16]?["data"];
                         }
 
                         break;
@@ -166,7 +166,7 @@ namespace rtssh
 
                             try
                             {
-                                formattedPrint = tempText +
+                                formattedPrint = tempText + " " +
                                                  (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
                                                      [jsonPathFormatted[2]] + "°" + separatorText + freqText +
                                                  (int) (double) freqTemp["lscpu"]?[16]?["data"];
