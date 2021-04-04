@@ -47,7 +47,7 @@
             this.freqTextBox = new System.Windows.Forms.TextBox();
             this.freqLabel = new System.Windows.Forms.Label();
             this.tempLabel = new System.Windows.Forms.Label();
-            this.commaRadioButton = new System.Windows.Forms.RadioButton();
+            this.spaceRadioButton = new System.Windows.Forms.RadioButton();
             this.newLineRadioButton = new System.Windows.Forms.RadioButton();
             this.seperatorGroupBox = new System.Windows.Forms.GroupBox();
             this.displayGroupBox = new System.Windows.Forms.GroupBox();
@@ -211,15 +211,15 @@
             this.tempLabel.Text = "Temperature text:";
             this.tempLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // commaRadioButton
+            // spaceRadioButton
             // 
-            this.commaRadioButton.Location = new System.Drawing.Point(6, 12);
-            this.commaRadioButton.Name = "commaRadioButton";
-            this.commaRadioButton.Size = new System.Drawing.Size(64, 24);
-            this.commaRadioButton.TabIndex = 14;
-            this.commaRadioButton.TabStop = true;
-            this.commaRadioButton.Text = "comma";
-            this.commaRadioButton.UseVisualStyleBackColor = true;
+            this.spaceRadioButton.Location = new System.Drawing.Point(6, 12);
+            this.spaceRadioButton.Name = "spaceRadioButton";
+            this.spaceRadioButton.Size = new System.Drawing.Size(64, 24);
+            this.spaceRadioButton.TabIndex = 14;
+            this.spaceRadioButton.TabStop = true;
+            this.spaceRadioButton.Text = "space";
+            this.spaceRadioButton.UseVisualStyleBackColor = true;
             // 
             // newLineRadioButton
             // 
@@ -233,7 +233,7 @@
             // 
             // seperatorGroupBox
             // 
-            this.seperatorGroupBox.Controls.Add(this.commaRadioButton);
+            this.seperatorGroupBox.Controls.Add(this.spaceRadioButton);
             this.seperatorGroupBox.Controls.Add(this.newLineRadioButton);
             this.seperatorGroupBox.Location = new System.Drawing.Point(198, 102);
             this.seperatorGroupBox.Name = "seperatorGroupBox";
@@ -457,7 +457,7 @@
 
         private System.Windows.Forms.GroupBox seperatorGroupBox;
 
-        private System.Windows.Forms.RadioButton commaRadioButton;
+        private System.Windows.Forms.RadioButton spaceRadioButton;
         private System.Windows.Forms.RadioButton newLineRadioButton;
 
         private System.Windows.Forms.Label freqLabel;

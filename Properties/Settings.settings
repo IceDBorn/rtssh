@@ -29,9 +29,9 @@
       <Value Profile="(Default)">CPU</Value>
     </Setting>
     <Setting Name="freqText" Type="System.String" Scope="User">
-      <Value Profile="(Default)">CPU</Value>
+      <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="separatorComma" Type="System.Boolean" Scope="User">
+    <Setting Name="separatorSpace" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="displayToggle" Type="System.Int32" Scope="User">

@@ -3,12 +3,11 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using RTSSSharedMemoryNET;
 
 namespace rtssh
 {
-    internal static class RTSSHandler
+    internal static class RtssHandler
     {
         #region Fields
         private static Process _rtssInstance;
@@ -17,7 +16,7 @@ namespace rtssh
 
         #region Properties
         // Path to RTSS
-        private static string RTSSPath {get;}
+        private static string RtssPath {get;}
 
         // Return true if RTSS is running
         private static bool IsRunning => Process.GetProcessesByName("RTSS").Length != 0;
@@ -25,9 +24,9 @@ namespace rtssh
 
         #region Constructor
         // Initialize a new instance of the RTSSHandler class
-        static RTSSHandler()
+        static RtssHandler()
         {
-            RTSSPath = @"C:\Program Files (x86)\RivaTuner Statistics Server\RTSS.exe";
+            RtssPath = @"C:\Program Files (x86)\RivaTuner Statistics Server\RTSS.exe";
         }
         #endregion
 
@@ -42,37 +41,37 @@ namespace rtssh
         }
         
         /// Launch RTSS
-        public static void RunRTSS()
+        public static void RunRtss()
         {
-            if (_rtssInstance == null && !IsRunning && File.Exists(RTSSPath))
+            if (_rtssInstance == null && !IsRunning && File.Exists(RtssPath))
             {
                 try
                 {
-                    _rtssInstance = Process.Start(RTSSPath);
+                    _rtssInstance = Process.Start(RtssPath);
                     Thread.Sleep(2000);
                 }
-                catch (Exception exc)
+                catch
                 {
                     Console.WriteLine(@"Could not start RTSS");
                 }
 
-                RunOSD();
+                RunOsd();
             }
             else
             {
-                RunOSD();
+                RunOsd();
             }
         }
         
         // Launches OSD
-        private static void RunOSD()
+        private static void RunOsd()
         {
             if (_osd != null) return;
             try
             {
                 _osd = new OSD("rtssh");
             }
-            catch (Exception exc)
+            catch
             {
                 MessageBox.Show(@"Could not start OSD");
             }

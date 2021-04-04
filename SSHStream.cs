@@ -7,16 +7,35 @@ using Renci.SshNet;
 
 namespace rtssh
 {
-    internal static class SSHStream
+    internal static class SshStream
     {
+        private static SshClient _sshClient;
+        private static ShellStream _tempStream;
+        private static ShellStream _freqStream;
+        private static int _displayToggle;
+        private static int _refreshInterval;
+        
         public static void Start(string username, string host, int port, string keyPath, string jsonPath,
             string tempText, string freqText, bool separatorFlag, int displayToggle, string refreshInterval)
         {
-            var separatorText = separatorFlag ? ", " : "\n";
-            var refreshIntervalInt = int.Parse(refreshInterval);
+            _displayToggle = displayToggle;
+            _refreshInterval = int.Parse(refreshInterval);
+            var separatorText = separatorFlag ? "" : "\n";
 
+            Connect(host, port, username, keyPath);
+            
+            if (!_sshClient.IsConnected) return;
+
+            ExecuteCommandOnStream();
+
+            PrintUntilClose(separatorText, tempText, freqText, jsonPath);
+        }
+        
+        #region Methods
+        private static void Connect(string host, int port, string username, string keyPath)
+        {
             // Run RTSS or hook to existing process
-            RTSSHandler.RunRTSS();
+            RtssHandler.RunRtss();
 
             // Create key file used for connection
             PrivateKeyFile key;
@@ -32,63 +51,65 @@ namespace rtssh
             }
 
             // Create ssh client with given values
-            var sshClient = new SshClient(host, port, username, key);
+            _sshClient = new SshClient(host, port, username, key);
 
             // Connect to ssh client
             try
             {
-                sshClient.Connect();
+                _sshClient.Connect();
             }
             catch (Exception e)
             {
                 SystemSounds.Beep.Play();
                 MessageBox.Show(e.Message);
-                return;
             }
+        }
 
-            ShellStream tempStream = null;
-            ShellStream freqStream = null;
-
-            var tempCommand = "while true; do sensors -j | jq -cM; sleep " + refreshIntervalInt + "; done";
-            var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + refreshIntervalInt + "; done";
-
-            switch (displayToggle)
+        private static void ExecuteCommandOnStream()
+        {
+            var tempCommand = "while true; do sensors -j | jq -cM; sleep " + _refreshInterval + "; done";
+            var freqCommand = "while true; do lscpu -J | jq -cM; sleep " + _refreshInterval + "; done";
+            
+            switch (_displayToggle)
             {
                 case 0:
                 {
                     // Stream sensors -j
-                    tempStream = sshClient.CreateShellStream("temp",
+                    _tempStream = _sshClient.CreateShellStream("temp",
                         0, 0, 0, 0, 1024);
 
                     // Execute command
-                    tempStream.WriteLine(tempCommand);
+                    _tempStream.WriteLine(tempCommand);
                     break;
                 }
                 case 1:
                 {
                     // Stream lscpu -J
-                    freqStream = sshClient.CreateShellStream("freq",
+                    _freqStream = _sshClient.CreateShellStream("freq",
                         0, 0, 0, 0, 1024);
 
                     // Execute command
-                    freqStream.WriteLine(freqCommand);
+                    _freqStream.WriteLine(freqCommand);
                     break;
                 }
                 case 2:
                 {
                     // Stream sensors -j & lscpu -J
-                    tempStream = sshClient.CreateShellStream("temp",
+                    _tempStream = _sshClient.CreateShellStream("temp",
                         0, 0, 0, 0, 1024);
-                    freqStream = sshClient.CreateShellStream("freq",
+                    _freqStream = _sshClient.CreateShellStream("freq",
                         0, 0, 0, 0, 1024);
 
                     // Execute commands
-                    tempStream.WriteLine(tempCommand);
-                    freqStream.WriteLine(freqCommand);
+                    _tempStream.WriteLine(tempCommand);
+                    _freqStream.WriteLine(freqCommand);
                     break;
                 }
             }
+        }
 
+        private static void PrintUntilClose(string separatorText, string tempText, string freqText, string jsonPath)
+        {
             // Loop until form closes
             while (true)
             {
@@ -108,12 +129,12 @@ namespace rtssh
                 string tempOutput;
                 string freqOutput;
 
-                switch (displayToggle)
+                switch (_displayToggle)
                 {
                     // temp
                     case 0:
                     {
-                        tempOutput = tempStream?.Read();
+                        tempOutput = _tempStream?.Read();
 
                         if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{") &&
                             jsonPathFormatted != null)
@@ -126,7 +147,7 @@ namespace rtssh
                                                  (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
                                                      [jsonPathFormatted[2]] + "°";
                             }
-                            catch (Exception e)
+                            catch
                             {
                                 MessageBox.Show(@"Could not parse JSON");
                                 return;
@@ -138,7 +159,7 @@ namespace rtssh
                     // freq
                     case 1:
                     {
-                        freqOutput = freqStream?.Read();
+                        freqOutput = _freqStream?.Read();
 
 
                         if (!string.IsNullOrEmpty(freqOutput) && freqOutput.StartsWith("{"))
@@ -153,8 +174,8 @@ namespace rtssh
                     // both
                     case 2:
                     {
-                        tempOutput = tempStream?.Read();
-                        freqOutput = freqStream?.Read();
+                        tempOutput = _tempStream?.Read();
+                        freqOutput = _freqStream?.Read();
 
 
                         if (!string.IsNullOrEmpty(tempOutput) && tempOutput.StartsWith("{") &&
@@ -168,10 +189,10 @@ namespace rtssh
                             {
                                 formattedPrint = tempText + " " +
                                                  (int) (double) jsonTemp[jsonPathFormatted[0]]?[jsonPathFormatted[1]]?
-                                                     [jsonPathFormatted[2]] + "°" + separatorText + freqText +
+                                                     [jsonPathFormatted[2]] + "°" + separatorText + freqText + " " +
                                                  (int) (double) freqTemp["lscpu"]?[16]?["data"];
                             }
-                            catch (Exception e)
+                            catch
                             {
                                 MessageBox.Show(@"Could not parse JSON");
                                 return;
@@ -185,11 +206,11 @@ namespace rtssh
                 if (!string.IsNullOrEmpty(formattedPrint))
                 {
                     // Print cpu temp into RTSS
-                    RTSSHandler.Print(formattedPrint);
+                    RtssHandler.Print(formattedPrint);
                 }
 
-                // Wait for given seconds before updating cpu temp
-                Thread.Sleep(refreshIntervalInt * 1000);
+                // Wait for given seconds before updating OSD
+                Thread.Sleep(_refreshInterval * 1000);
             }
         }
 
@@ -206,5 +227,6 @@ namespace rtssh
 
             return jsonPathFormatted;
         }
+        #endregion
     }
 }
