@@ -182,6 +182,7 @@
             this.tempTextBox.Name = "tempTextBox";
             this.tempTextBox.Size = new System.Drawing.Size(180, 20);
             this.tempTextBox.TabIndex = 9;
+            this.tempTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // freqTextBox
             // 
@@ -189,6 +190,7 @@
             this.freqTextBox.Name = "freqTextBox";
             this.freqTextBox.Size = new System.Drawing.Size(180, 20);
             this.freqTextBox.TabIndex = 10;
+            this.freqTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // freqLabel
             // 
