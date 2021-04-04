@@ -8,19 +8,38 @@ namespace rtssh
 {
     public partial class MainForm : Form
     {
+        #region Fields
+        
         private Thread _thread;
         private const string RunRegKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
         private readonly string _executablePath = "\"" + Application.ExecutablePath + "\"";
         private const string AppName = "rtssh";
         private readonly string[] _args;
+        
+        #endregion
 
+        #region Constructor
+        
         public MainForm(string[] args)
         {
             InitializeComponent();
             InitializeValues();
             _args = args;
         }
+        
+        #endregion
 
+        #region Getters/Setters
+        
+        public void SetJsonPathTextBox(string jsonPath)
+        {
+            jsonPathTextBox.Text = jsonPath;
+        }
+        
+        #endregion
+
+        #region Events
+        
         private void connectButton_Click(object sender, EventArgs e)
         {
             Connect();
@@ -33,6 +52,8 @@ namespace rtssh
 
         private void keyBrowserButton_Click(object sender, EventArgs e)
         {
+            keyBrowser.Title = @"Select private key file";
+            keyBrowser.Filter = @"All files (*.*)|*.*";
             keyBrowser.ShowDialog();
             if (keyBrowser.FileName.Length > 0)
             {
@@ -87,6 +108,18 @@ namespace rtssh
         {
             Close();
         }
+        private void jsonBrowserButton_Click(object sender, EventArgs e)
+        {
+            keyBrowser.Filter = @"json files (*.json)|*.json";
+            keyBrowser.Title = @"Select JSON file";
+            keyBrowser.ShowDialog();
+            
+            if (string.IsNullOrEmpty(keyBrowser.FileName)) return;
+            var treeViewJson = new TreeViewJson(keyBrowser.FileName);
+            treeViewJson.ShowDialog();
+        }
+        
+        #endregion
 
         #region  Methods
 
@@ -288,6 +321,7 @@ namespace rtssh
             // Hide tray icon
             trayIcon.Visible = false;
         }
+        
         #endregion
     }
 }
