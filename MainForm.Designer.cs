@@ -66,6 +66,7 @@
             this.startupCheckBox = new System.Windows.Forms.CheckBox();
             this.connectionGroupBox = new System.Windows.Forms.GroupBox();
             this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.jsonBrowserButton = new System.Windows.Forms.Button();
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
             this.trayIconContextMenu.SuspendLayout();
@@ -101,9 +102,9 @@
             // connectButton
             // 
             this.connectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.connectButton.Location = new System.Drawing.Point(12, 215);
+            this.connectButton.Location = new System.Drawing.Point(12, 211);
             this.connectButton.Name = "connectButton";
-            this.connectButton.Size = new System.Drawing.Size(246, 33);
+            this.connectButton.Size = new System.Drawing.Size(246, 62);
             this.connectButton.TabIndex = 17;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
@@ -164,6 +165,7 @@
             // 
             this.jsonPathTextBox.Location = new System.Drawing.Point(7, 115);
             this.jsonPathTextBox.Name = "jsonPathTextBox";
+            this.jsonPathTextBox.ReadOnly = true;
             this.jsonPathTextBox.Size = new System.Drawing.Size(180, 20);
             this.jsonPathTextBox.TabIndex = 8;
             this.jsonPathTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -179,7 +181,7 @@
             // 
             // tempTextBox
             // 
-            this.tempTextBox.Location = new System.Drawing.Point(7, 157);
+            this.tempTextBox.Location = new System.Drawing.Point(7, 190);
             this.tempTextBox.Name = "tempTextBox";
             this.tempTextBox.Size = new System.Drawing.Size(180, 20);
             this.tempTextBox.TabIndex = 9;
@@ -187,7 +189,7 @@
             // 
             // freqTextBox
             // 
-            this.freqTextBox.Location = new System.Drawing.Point(7, 200);
+            this.freqTextBox.Location = new System.Drawing.Point(7, 233);
             this.freqTextBox.Name = "freqTextBox";
             this.freqTextBox.Size = new System.Drawing.Size(180, 20);
             this.freqTextBox.TabIndex = 10;
@@ -195,7 +197,7 @@
             // 
             // freqLabel
             // 
-            this.freqLabel.Location = new System.Drawing.Point(7, 180);
+            this.freqLabel.Location = new System.Drawing.Point(7, 213);
             this.freqLabel.Name = "freqLabel";
             this.freqLabel.Size = new System.Drawing.Size(180, 17);
             this.freqLabel.TabIndex = 15;
@@ -204,7 +206,7 @@
             // 
             // tempLabel
             // 
-            this.tempLabel.Location = new System.Drawing.Point(7, 138);
+            this.tempLabel.Location = new System.Drawing.Point(7, 171);
             this.tempLabel.Name = "tempLabel";
             this.tempLabel.Size = new System.Drawing.Size(180, 17);
             this.tempLabel.TabIndex = 16;
@@ -304,11 +306,11 @@
             // 
             // keyBrowserButton
             // 
-            this.keyBrowserButton.Location = new System.Drawing.Point(111, 157);
+            this.keyBrowserButton.Location = new System.Drawing.Point(110, 153);
             this.keyBrowserButton.Name = "keyBrowserButton";
             this.keyBrowserButton.Size = new System.Drawing.Size(75, 23);
             this.keyBrowserButton.TabIndex = 4;
-            this.keyBrowserButton.Text = "Browse";
+            this.keyBrowserButton.Text = "Browse key";
             this.keyBrowserButton.UseVisualStyleBackColor = true;
             this.keyBrowserButton.Click += new System.EventHandler(this.keyBrowserButton_Click);
             // 
@@ -372,7 +374,7 @@
             this.connectionGroupBox.Controls.Add(this.keyLabel);
             this.connectionGroupBox.Location = new System.Drawing.Point(12, 12);
             this.connectionGroupBox.Name = "connectionGroupBox";
-            this.connectionGroupBox.Size = new System.Drawing.Size(246, 197);
+            this.connectionGroupBox.Size = new System.Drawing.Size(246, 184);
             this.connectionGroupBox.TabIndex = 30;
             this.connectionGroupBox.TabStop = false;
             this.connectionGroupBox.Text = "Connection";
@@ -380,6 +382,7 @@
             // settingsGroupBox
             // 
             this.settingsGroupBox.Controls.Add(this.displayGroupBox);
+            this.settingsGroupBox.Controls.Add(this.jsonBrowserButton);
             this.settingsGroupBox.Controls.Add(this.autoConnectCheckBox);
             this.settingsGroupBox.Controls.Add(this.saveSettingsCheckBox);
             this.settingsGroupBox.Controls.Add(this.RefreshIntervalNumeric);
@@ -392,19 +395,29 @@
             this.settingsGroupBox.Controls.Add(this.jsonPathLabel);
             this.settingsGroupBox.Controls.Add(this.tempLabel);
             this.settingsGroupBox.Controls.Add(this.seperatorGroupBox);
-            this.settingsGroupBox.Location = new System.Drawing.Point(264, 12);
+            this.settingsGroupBox.Location = new System.Drawing.Point(273, 12);
             this.settingsGroupBox.Name = "settingsGroupBox";
-            this.settingsGroupBox.Size = new System.Drawing.Size(307, 236);
+            this.settingsGroupBox.Size = new System.Drawing.Size(306, 261);
             this.settingsGroupBox.TabIndex = 31;
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Settings";
+            // 
+            // jsonBrowserButton
+            // 
+            this.jsonBrowserButton.Location = new System.Drawing.Point(55, 145);
+            this.jsonBrowserButton.Name = "jsonBrowserButton";
+            this.jsonBrowserButton.Size = new System.Drawing.Size(81, 23);
+            this.jsonBrowserButton.TabIndex = 32;
+            this.jsonBrowserButton.Text = "Browse JSON";
+            this.jsonBrowserButton.UseVisualStyleBackColor = true;
+            this.jsonBrowserButton.Click += new System.EventHandler(this.jsonBrowserButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(579, 261);
+            this.ClientSize = new System.Drawing.Size(592, 285);
             this.Controls.Add(this.settingsGroupBox);
             this.Controls.Add(this.connectionGroupBox);
             this.Controls.Add(this.connectButton);
@@ -427,6 +440,8 @@
             this.settingsGroupBox.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button jsonBrowserButton;
 
         private System.Windows.Forms.GroupBox connectionGroupBox;
         private System.Windows.Forms.GroupBox settingsGroupBox;

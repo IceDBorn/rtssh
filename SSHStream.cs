@@ -9,11 +9,17 @@ namespace rtssh
 {
     internal static class SshStream
     {
+        #region Fields
+        
         private static SshClient _sshClient;
         private static ShellStream _tempStream;
         private static ShellStream _freqStream;
         private static int _displayToggle;
         private static int _refreshInterval;
+        
+        #endregion
+
+        #region Constructor
         
         public static void Start(string username, string host, int port, string keyPath, string jsonPath,
             string tempText, string freqText, bool separatorFlag, int displayToggle, string refreshInterval)
@@ -31,7 +37,10 @@ namespace rtssh
             PrintUntilClose(separatorText, tempText, freqText, jsonPath);
         }
         
+        #endregion
+        
         #region Methods
+        
         private static void Connect(string host, int port, string username, string keyPath)
         {
             // Run RTSS or hook to existing process
@@ -227,6 +236,7 @@ namespace rtssh
 
             return jsonPathFormatted;
         }
+        
         #endregion
     }
 }

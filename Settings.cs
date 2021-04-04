@@ -2,6 +2,8 @@ namespace rtssh
 {
     public static class Settings
     {
+        #region Methods
+        
         public static void Save(string username, string host, string port, string key, string jsonPath,
             bool autoConnect, string tempText, string freqText, bool separatorSpace, int displayToggle,
             string refreshInterval, bool startup)
@@ -41,5 +43,7 @@ namespace rtssh
             Properties.Settings.Default["startup"] = false;
             Properties.Settings.Default.Save();
         }
+        
+        #endregion
     }
 }
