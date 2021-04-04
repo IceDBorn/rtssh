@@ -88,7 +88,7 @@ namespace rtssh
             Close();
         }
 
-        //Methods
+        #region  Methods
 
         private void InitializeValues()
         {
@@ -288,5 +288,6 @@ namespace rtssh
             // Hide tray icon
             trayIcon.Visible = false;
         }
+        #endregion
     }
 }
