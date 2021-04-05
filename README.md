@@ -20,7 +20,7 @@
 7. Fill `user`
 8. Fill `host`
 9. Fill `port`, usually `22`
-10. Browse for the private key file, located at `C:\Users\<USERNAME>\.ssh` as `id_rsa`
+10. Browse for the private key file, usually located at `C:\Users\<USERNAME>\.ssh` as `id_rsa`
 11. If `both` or `temperature` is selected under `Display`, browse for `sensors.json` and select temperature to print, otherwise go to the next step
 12. Press Connect
 
