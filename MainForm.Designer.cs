@@ -66,6 +66,7 @@
             this.startupCheckBox = new System.Windows.Forms.CheckBox();
             this.connectionGroupBox = new System.Windows.Forms.GroupBox();
             this.settingsGroupBox = new System.Windows.Forms.GroupBox();
+            this.connectionStatusLabel = new System.Windows.Forms.Label();
             this.jsonBrowserButton = new System.Windows.Forms.Button();
             this.seperatorGroupBox.SuspendLayout();
             this.displayGroupBox.SuspendLayout();
@@ -381,6 +382,7 @@
             // 
             // settingsGroupBox
             // 
+            this.settingsGroupBox.Controls.Add(this.connectionStatusLabel);
             this.settingsGroupBox.Controls.Add(this.displayGroupBox);
             this.settingsGroupBox.Controls.Add(this.jsonBrowserButton);
             this.settingsGroupBox.Controls.Add(this.autoConnectCheckBox);
@@ -401,6 +403,17 @@
             this.settingsGroupBox.TabIndex = 31;
             this.settingsGroupBox.TabStop = false;
             this.settingsGroupBox.Text = "Settings";
+            // 
+            // connectionStatusLabel
+            // 
+            this.connectionStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.connectionStatusLabel.ForeColor = System.Drawing.Color.Red;
+            this.connectionStatusLabel.Location = new System.Drawing.Point(198, 233);
+            this.connectionStatusLabel.Name = "connectionStatusLabel";
+            this.connectionStatusLabel.Size = new System.Drawing.Size(100, 18);
+            this.connectionStatusLabel.TabIndex = 33;
+            this.connectionStatusLabel.Text = "Disconnected";
+            this.connectionStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // jsonBrowserButton
             // 
@@ -428,6 +441,7 @@
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.seperatorGroupBox.ResumeLayout(false);
@@ -440,6 +454,8 @@
             this.settingsGroupBox.PerformLayout();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label connectionStatusLabel;
 
         private System.Windows.Forms.Button jsonBrowserButton;
 

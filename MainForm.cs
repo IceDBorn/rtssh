@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
@@ -6,6 +7,7 @@ using Microsoft.Win32;
 
 namespace rtssh
 {
+    public enum ConnectionStatus { Disconnected, Connecting, Connected }
     public partial class MainForm : Form
     {
         #region Fields
@@ -23,7 +25,6 @@ namespace rtssh
         public MainForm(string[] args)
         {
             InitializeComponent();
-            InitializeValues();
             _args = args;
         }
         
@@ -31,14 +32,52 @@ namespace rtssh
 
         #region Getters/Setters
         
-        public void SetJsonPathTextBox(string jsonPath)
+        public string JsonPathTextBox { set => jsonPathTextBox.Text = value; }
+
+        private ConnectionStatus _connectionStatus;
+        public ConnectionStatus ConnectionStatus
         {
-            jsonPathTextBox.Text = jsonPath;
+            get => _connectionStatus;
+            set
+            {
+                switch (value)
+                {
+                    case ConnectionStatus.Disconnected:
+                    {
+                        connectionStatusLabel.Text = @"Disconnected";
+                        connectionStatusLabel.ForeColor = Color.Red;
+                        break;
+                    }
+                    case ConnectionStatus.Connecting:
+                    {
+                        connectionStatusLabel.Text = @"Connecting";
+                        connectionStatusLabel.ForeColor = Color.Orange;
+                        break;
+                    }
+                    case ConnectionStatus.Connected:
+                    {
+                        connectionStatusLabel.Text = @"Connected";
+                        connectionStatusLabel.ForeColor = Color.Green;
+                        break;
+                    }
+                    default:
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(value), value, null);
+                    }
+                }
+
+                _connectionStatus = value;
+            }
         }
-        
+
         #endregion
 
         #region Events
+        
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            InitializeValues();
+        }
         
         private void connectButton_Click(object sender, EventArgs e)
         {
