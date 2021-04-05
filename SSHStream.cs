@@ -30,7 +30,7 @@ namespace rtssh
 
             Connect(host, port, username, keyPath);
             
-            if (!_sshClient.IsConnected) return;
+            if (_sshClient == null || !_sshClient.IsConnected) return;
 
             ExecuteCommandOnStream();
 
@@ -45,26 +45,16 @@ namespace rtssh
         {
             // Run RTSS or hook to existing process
             RtssHandler.RunRtss();
-
-            // Create key file used for connection
-            PrivateKeyFile key;
+            
             try
             {
-                key = new PrivateKeyFile(keyPath);
-            }
-            catch (Exception e)
-            {
-                SystemSounds.Beep.Play();
-                MessageBox.Show(e.Message);
-                return;
-            }
+                // Create key file used for connection
+                var key = new PrivateKeyFile(keyPath);
 
-            // Create ssh client with given values
-            _sshClient = new SshClient(host, port, username, key);
-
-            // Connect to ssh client
-            try
-            {
+                // Create ssh client with given values
+                _sshClient = new SshClient(host, port, username, key);
+                
+                // Connect to ssh client
                 _sshClient.Connect();
             }
             catch (Exception e)
