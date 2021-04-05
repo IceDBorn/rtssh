@@ -27,10 +27,15 @@ namespace rtssh
             _displayToggle = displayToggle;
             _refreshInterval = int.Parse(refreshInterval);
             var separatorText = separatorFlag ? "" : "\n";
+            LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Connecting;
 
             Connect(host, port, username, keyPath);
-            
-            if (_sshClient == null || !_sshClient.IsConnected) return;
+
+            if (_sshClient == null || !_sshClient.IsConnected)
+            {
+                LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
+                return;
+            }
 
             ExecuteCommandOnStream();
 
@@ -59,6 +64,7 @@ namespace rtssh
             }
             catch (Exception e)
             {
+                LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
                 SystemSounds.Beep.Play();
                 MessageBox.Show(e.Message);
             }
@@ -148,6 +154,7 @@ namespace rtssh
                             }
                             catch
                             {
+                                LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
                                 MessageBox.Show(@"Could not parse JSON");
                                 return;
                             }
@@ -193,6 +200,7 @@ namespace rtssh
                             }
                             catch
                             {
+                                LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
                                 MessageBox.Show(@"Could not parse JSON");
                                 return;
                             }
@@ -208,6 +216,10 @@ namespace rtssh
                     RtssHandler.Print(formattedPrint);
                 }
 
+                if (LaunchForm.MainForm.ConnectionStatus != ConnectionStatus.Connected)
+                {
+                    LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Connected;
+                }
                 // Wait for given seconds before updating OSD
                 Thread.Sleep(_refreshInterval * 1000);
             }

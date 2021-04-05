@@ -42,7 +42,7 @@ namespace rtssh
                 jsonTreeView.SelectedNode.ForeColor != Color.Green) return;
             
             var jsonPath = JsonPathFormatter(jsonTreeView.SelectedNode.FullPath);
-            LaunchForm.MainForm.SetJsonPathTextBox(jsonPath);
+            LaunchForm.MainForm.JsonPathTextBox = jsonPath;
             Close();
         }
         
