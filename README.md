@@ -4,7 +4,7 @@
 3. <a href="https://www.guru3d.com/files-details/rtss-rivatuner-statistics-server-download.html" target="_blank">RivaTuner Statistics Server</a>
 4. <a href="https://gitforwindows.org/" target="_blank">Git for Windows</a>
 5. <a href="https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net472-web-installer" target="_blank">.NET Framework 4.7.2</a>
-6. <a href="https://aka.ms/vs/16/release/vc_redist.x64.exe" target="_blank">Microsoft Visual C++ Redistributables 2015-2019</a>
+6. <a href="https://aka.ms/vs/16/release/vc_redist.x64.exe" target="_blank">Microsoft Visual C++ Redistributable 2015-2019</a>
 
 
 # How to use
