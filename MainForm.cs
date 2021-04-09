@@ -91,13 +91,13 @@ namespace rtssh
 
         private void keyBrowserButton_Click(object sender, EventArgs e)
         {
-            keyBrowser.Title = @"Select private key file";
-            keyBrowser.Filter = @"All files (*.*)|*.*";
-            keyBrowser.ShowDialog();
-            if (keyBrowser.FileName.Length > 0)
-            {
-                keyTextBox.Text = keyBrowser.FileName;
-            }
+            fileBrowser.FileName = "";
+            fileBrowser.Title = @"Select private key file";
+            fileBrowser.Filter = @"All files (*.*)|*.*";
+            fileBrowser.ShowDialog();
+            
+            if (string.IsNullOrEmpty(fileBrowser.FileName)) return;
+            keyTextBox.Text = fileBrowser.FileName;
         }
 
         private void trayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -149,12 +149,13 @@ namespace rtssh
         }
         private void jsonBrowserButton_Click(object sender, EventArgs e)
         {
-            keyBrowser.Filter = @"json files (*.json)|*.json";
-            keyBrowser.Title = @"Select JSON file";
-            keyBrowser.ShowDialog();
+            fileBrowser.FileName = "";
+            fileBrowser.Title = @"Select JSON file";
+            fileBrowser.Filter = @"json files (*.json)|*.json";
+            fileBrowser.ShowDialog();
             
-            if (string.IsNullOrEmpty(keyBrowser.FileName)) return;
-            var treeViewJson = new TreeViewJson(keyBrowser.FileName);
+            if (string.IsNullOrEmpty(fileBrowser.FileName)) return;
+            var treeViewJson = new TreeViewJson(fileBrowser.FileName);
             treeViewJson.ShowDialog();
         }
         

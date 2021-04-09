@@ -49,8 +49,17 @@ namespace rtssh
         private static void Connect(string host, int port, string username, string keyPath)
         {
             // Run RTSS or hook to existing process
-            RtssHandler.RunRtss();
-            
+            try
+            {
+                RtssHandler.RunRtss();
+            }
+            catch
+            {
+                LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
+                SystemSounds.Beep.Play();
+                MessageBox.Show(@"Make sure Microsoft Visual C++ Redistributable 2015-2019 is installed!");
+            }
+
             try
             {
                 // Create key file used for connection

@@ -56,7 +56,7 @@
             this.freqRadioButton = new System.Windows.Forms.RadioButton();
             this.refreshIntervalLabel = new System.Windows.Forms.Label();
             this.keyTextBox = new System.Windows.Forms.TextBox();
-            this.keyBrowser = new System.Windows.Forms.OpenFileDialog();
+            this.fileBrowser = new System.Windows.Forms.OpenFileDialog();
             this.keyBrowserButton = new System.Windows.Forms.Button();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayIconContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -477,7 +477,7 @@
         private System.Windows.Forms.Button keyBrowserButton;
 
         private System.Windows.Forms.TextBox keyTextBox;
-        private System.Windows.Forms.OpenFileDialog keyBrowser;
+        private System.Windows.Forms.OpenFileDialog fileBrowser;
 
         private System.Windows.Forms.Label refreshIntervalLabel;
 
