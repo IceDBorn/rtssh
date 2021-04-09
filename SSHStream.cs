@@ -223,11 +223,11 @@ namespace rtssh
                 {
                     // Print cpu temp into RTSS
                     RtssHandler.Print(formattedPrint);
-                }
-
-                if (LaunchForm.MainForm.ConnectionStatus != ConnectionStatus.Connected)
-                {
-                    LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Connected;
+                    
+                    if (LaunchForm.MainForm.ConnectionStatus != ConnectionStatus.Connected)
+                    {
+                        LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Connected;
+                    }
                 }
                 // Wait for given seconds before updating OSD
                 Thread.Sleep(_refreshInterval * 1000);

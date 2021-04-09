@@ -1,6 +1,5 @@
-using System;
 using System.Diagnostics;
-using System.IO;
+using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using RTSSSharedMemoryNET;
@@ -43,19 +42,20 @@ namespace rtssh
         /// Launch RTSS
         public static void RunRtss()
         {
-            if (_rtssInstance == null && !IsRunning && File.Exists(RtssPath))
+            if (_rtssInstance == null && !IsRunning)
             {
                 try
                 {
                     _rtssInstance = Process.Start(RtssPath);
                     Thread.Sleep(2000);
+                    RunOsd();
                 }
                 catch
                 {
-                    Console.WriteLine(@"Could not start RTSS");
+                    LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
+                    SystemSounds.Beep.Play();
+                    MessageBox.Show(@"Make sure RTSS is installed in the default location!");
                 }
-
-                RunOsd();
             }
             else
             {
@@ -73,7 +73,9 @@ namespace rtssh
             }
             catch
             {
-                MessageBox.Show(@"Could not start OSD");
+                LaunchForm.MainForm.ConnectionStatus = ConnectionStatus.Disconnected;
+                SystemSounds.Beep.Play();
+                MessageBox.Show(@"Could not start OSD!");
             }
         }
         #endregion
