@@ -14,7 +14,7 @@
 
 <b>Windows</b>
 1. Open `powershell`
-2. Run `ssh-keygen`, press enter until the key's created
+2. Run `ssh-keygen -t ed25519`, press enter until the key's created
 3. Open `Git Bash`
 4. Run `ssh-copy-id user@host` (`user` = <YOUR_LINUX_USERNAME> - `host` = <IP_ADDRESS_OF_LINUX_HOST>, usually `192.168.122.1` for QEMU/KVM VMs)
 5. Open RTSSH
